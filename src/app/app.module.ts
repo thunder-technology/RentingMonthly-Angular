@@ -18,12 +18,13 @@ import { IconsComponent } from './icons/icons.component';
 import { MapsComponent } from './maps/maps.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { UpgradeComponent } from './upgrade/upgrade.component';
+import { HouseRecordingComponent } from './house-recording/house-recording.component';
+import { OwnerRecordingComponent } from './owner-recording/owner-recording.component';
+
 import {
   AgmCoreModule
 } from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import { HouseRecordingComponent } from './house-recording/house-recording.component';
-import { OwnerRecordingComponent } from './owner-recording/owner-recording.component';
 
 @NgModule({
   imports: [
@@ -41,8 +42,8 @@ import { OwnerRecordingComponent } from './owner-recording/owner-recording.compo
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    HouseRecordingComponent,
-    OwnerRecordingComponent,
+    // HouseRecordingComponent,
+    // OwnerRecordingComponent,
 
   ],
   providers: [],

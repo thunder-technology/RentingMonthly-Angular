@@ -11,6 +11,8 @@ import { IconsComponent } from '../../icons/icons.component';
 import { MapsComponent } from '../../maps/maps.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
+import { HouseRecordingComponent } from '../../house-recording/house-recording.component';
+import { OwnerRecordingComponent } from '../../owner-recording/owner-recording.component';
 
 import {
   MatButtonModule,
@@ -20,6 +22,8 @@ import {
   MatTooltipModule,
   MatSelectModule
 } from '@angular/material';
+
+
 @NgModule({
   imports: [
     CommonModule,
@@ -42,6 +46,8 @@ import {
     MapsComponent,
     NotificationsComponent,
     UpgradeComponent,
+    HouseRecordingComponent,
+    OwnerRecordingComponent,
   ]
 })
 
