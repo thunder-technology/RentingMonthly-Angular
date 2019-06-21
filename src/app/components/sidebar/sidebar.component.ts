@@ -16,6 +16,8 @@ export const ROUTES: RouteInfo[] = [
     // { path: '/maps', title: 'Maps',  icon:'location_on', class: '' },
     // { path: '/notifications', title: 'Notifications',  icon:'notifications', class: '' },
     // { path: '/upgrade', title: 'Upgrade to PRO',  icon:'unarchive', class: 'active-pro' },
+    { path: '/house-recording', title: '房源信息录入',  icon:'account_balance', class: 'house-recording' },
+    { path: '/owner-recording', title: '房东信息录入',  icon:'face', class: 'owner-recording' },
 ];
 
 @Component({

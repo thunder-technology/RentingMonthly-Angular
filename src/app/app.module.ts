@@ -22,6 +22,8 @@ import {
   AgmCoreModule
 } from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { HouseRecordingComponent } from './house-recording/house-recording.component';
+import { OwnerRecordingComponent } from './owner-recording/owner-recording.component';
 
 @NgModule({
   imports: [
@@ -39,6 +41,8 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
   declarations: [
     AppComponent,
     AdminLayoutComponent,
+    HouseRecordingComponent,
+    OwnerRecordingComponent,
 
   ],
   providers: [],
