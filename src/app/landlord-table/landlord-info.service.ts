@@ -5,9 +5,16 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 
-export interface LandlordInfo {
+export interface LLI {
   user_name: string;
   full_name: string;
+}
+
+
+export interface LandlordInfo {
+  // user_name: string;
+  // full_name: string;
+  landlord_info: LLI[]
   // residential_address: string;
   // contact_number: number;
   // email: string;
@@ -22,6 +29,7 @@ export class LandlordInfoService {
   constructor(private http: HttpClient) { }
 
   getLandlord() {
+    console.log(this.http.get(this.url));
     return this.http.get<LandlordInfo>(this.url);
   }
 

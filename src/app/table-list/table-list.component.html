@@ -1,43 +1,187 @@
-<div class="main-content">
-  <div class="container-fluid">
-      <div class="row">
-          <div class="col-md-12">
-              <div class="card">
-                  <div class="card-header card-header-danger">
-                      <h4 class="card-title ">房东列表</h4>
+<!--<div class="main-content">-->
+<!--  <div class="container-fluid">-->
+<!--      <div class="row">-->
+<!--          <div class="col-md-12">-->
+<!--              <div class="card">-->
+<!--                  <div class="card-header card-header-danger">-->
+<!--                      <h4 class="card-title ">房东列表</h4>-->
+<!--&lt;!&ndash;                      <p class="card-category"> Here is a subtitle for this table</p>&ndash;&gt;-->
+<!--                  </div>-->
+<!--                  <div class="card-body">-->
+<!--                      <div class="table-responsive">-->
+<!--                          <table class="table">-->
+<!--                              <thead class=" text-primary">-->
+<!--&lt;!&ndash;                                  <th>&ndash;&gt;-->
+<!--&lt;!&ndash;                                      ID&ndash;&gt;-->
+<!--&lt;!&ndash;                                  </th>&ndash;&gt;-->
+<!--                                  <th>-->
+<!--                                      User Name-->
+<!--                                  </th>-->
+<!--                                  <th>-->
+<!--                                      Full Name-->
+<!--                                  </th>-->
+<!--                                  <th>-->
+<!--                                      CONTACT-->
+<!--                                  </th>-->
+<!--                                  <th>-->
+<!--                                      EMAIL-->
+<!--                                  </th>-->
+<!--                                <th>-->
+<!--                                    ADDRESS-->
+<!--                                </th>-->
+<!--                              </thead>-->
+<!--                              <tbody>-->
+<!--                              <div class="" *ngFor="let landlord of landlords">-->
+<!--                                  {{ landlord.user_name }}-->
+<!--                              </div>-->
+<!--&lt;!&ndash;                              <div class="landlord" *ngFor="let landlord of landlords | async">&ndash;&gt;-->
+<!--&lt;!&ndash;                                  <span>{{ landlord.user_name }}</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                                  <span>{{ landlord.full_name }}</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                                  <span>{{ landlord.contact_number }}</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                                  <span>{{ landlord.email }}</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                                  <span>{{ landlord.address }}</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                              </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                  <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                                      <td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                          1&ndash;&gt;-->
+<!--&lt;!&ndash;                                      </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                      <td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                          Dakota Rice&ndash;&gt;-->
+<!--&lt;!&ndash;                                      </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                      <td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                          Niger&ndash;&gt;-->
+<!--&lt;!&ndash;                                      </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                      <td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                          Oud-Turnhout&ndash;&gt;-->
+<!--&lt;!&ndash;                                      </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                      <td class="text-primary">&ndash;&gt;-->
+<!--&lt;!&ndash;                                          $36,738&ndash;&gt;-->
+<!--&lt;!&ndash;                                      </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                  </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                                  <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                                      <td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                          2&ndash;&gt;-->
+<!--&lt;!&ndash;                                      </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                      <td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                          Minerva Hooper&ndash;&gt;-->
+<!--&lt;!&ndash;                                      </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                      <td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                          Curaçao&ndash;&gt;-->
+<!--&lt;!&ndash;                                      </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                      <td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                          Sinaai-Waas&ndash;&gt;-->
+<!--&lt;!&ndash;                                      </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                      <td class="text-primary">&ndash;&gt;-->
+<!--&lt;!&ndash;                                          $23,789&ndash;&gt;-->
+<!--&lt;!&ndash;                                      </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                  </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                                  <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                                      <td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                          3&ndash;&gt;-->
+<!--&lt;!&ndash;                                      </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                      <td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                          Sage Rodriguez&ndash;&gt;-->
+<!--&lt;!&ndash;                                      </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                      <td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                          Netherlands&ndash;&gt;-->
+<!--&lt;!&ndash;                                      </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                      <td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                          Baileux&ndash;&gt;-->
+<!--&lt;!&ndash;                                      </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                      <td class="text-primary">&ndash;&gt;-->
+<!--&lt;!&ndash;                                          $56,142&ndash;&gt;-->
+<!--&lt;!&ndash;                                      </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                  </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                                  <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                                      <td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                          4&ndash;&gt;-->
+<!--&lt;!&ndash;                                      </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                      <td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                          Philip Chaney&ndash;&gt;-->
+<!--&lt;!&ndash;                                      </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                      <td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                          Korea, South&ndash;&gt;-->
+<!--&lt;!&ndash;                                      </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                      <td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                          Overland Park&ndash;&gt;-->
+<!--&lt;!&ndash;                                      </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                      <td class="text-primary">&ndash;&gt;-->
+<!--&lt;!&ndash;                                          $38,735&ndash;&gt;-->
+<!--&lt;!&ndash;                                      </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                  </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                                  <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                                      <td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                          5&ndash;&gt;-->
+<!--&lt;!&ndash;                                      </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                      <td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                          Doris Greene&ndash;&gt;-->
+<!--&lt;!&ndash;                                      </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                      <td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                          Malawi&ndash;&gt;-->
+<!--&lt;!&ndash;                                      </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                      <td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                          Feldkirchen in Kärnten&ndash;&gt;-->
+<!--&lt;!&ndash;                                      </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                      <td class="text-primary">&ndash;&gt;-->
+<!--&lt;!&ndash;                                          $63,542&ndash;&gt;-->
+<!--&lt;!&ndash;                                      </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                  </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                                  <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                                      <td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                          6&ndash;&gt;-->
+<!--&lt;!&ndash;                                      </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                      <td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                          Mason Porter&ndash;&gt;-->
+<!--&lt;!&ndash;                                      </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                      <td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                          Chile&ndash;&gt;-->
+<!--&lt;!&ndash;                                      </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                      <td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                          Gloucester&ndash;&gt;-->
+<!--&lt;!&ndash;                                      </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                      <td class="text-primary">&ndash;&gt;-->
+<!--&lt;!&ndash;                                          $78,615&ndash;&gt;-->
+<!--&lt;!&ndash;                                      </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                  </tr>&ndash;&gt;-->
+<!--                              </tbody>-->
+<!--                          </table>-->
+<!--                      </div>-->
+<!--                  </div>-->
+<!--              </div>-->
+<!--          </div>-->
+
+
+<app-landlord-table *ngIf="showLandlordInfo"></app-landlord-table>
+
+
+
+<!--          <div class="col-md-12">-->
+<!--              <div class="card card-plain">-->
+<!--                  <div class="card-header card-header-danger">-->
+<!--                      <h4 class="card-title mt-0"> Table on Plain Background</h4>-->
 <!--                      <p class="card-category"> Here is a subtitle for this table</p>-->
-                  </div>
-                  <div class="card-body">
-                      <div class="table-responsive">
-                          <table class="table">
-                              <thead class=" text-primary">
+<!--                  </div>-->
+<!--                  <div class="card-body">-->
+<!--                      <div class="table-responsive">-->
+<!--                          <table class="table table-hover">-->
+<!--                              <thead class="">-->
 <!--                                  <th>-->
 <!--                                      ID-->
 <!--                                  </th>-->
-                                  <th>
-                                      User Name
-                                  </th>
-                                  <th>
-                                      Full Name
-                                  </th>
-                                  <th>
-                                      CONTACT
-                                  </th>
-                                  <th>
-                                      EMAIL
-                                  </th>
-                                <th>
-                                    ADDRESS
-                                </th>
-                              </thead>
-                              <tbody>
-<!--                              <div class="landlord" *ngFor="let landlord of landlords | async">-->
-<!--                                  <span>{{ landlord.user_name }}</span>-->
-<!--                                  <span>{{ landlord.full_name }}</span>-->
-<!--                                  <span>{{ landlord.contact_number }}</span>-->
-<!--                                  <span>{{ landlord.email }}</span>-->
-<!--                                  <span>{{ landlord.address }}</span>-->
-<!--                              </div>-->
+<!--                                  <th>-->
+<!--                                      Name-->
+<!--                                  </th>-->
+<!--                                  <th>-->
+<!--                                      Country-->
+<!--                                  </th>-->
+<!--                                  <th>-->
+<!--                                      City-->
+<!--                                  </th>-->
+<!--                                  <th>-->
+<!--                                      Salary-->
+<!--                                  </th>-->
+<!--                              </thead>-->
+<!--                              <tbody>-->
 <!--                                  <tr>-->
 <!--                                      <td>-->
 <!--                                          1-->
@@ -51,7 +195,7 @@
 <!--                                      <td>-->
 <!--                                          Oud-Turnhout-->
 <!--                                      </td>-->
-<!--                                      <td class="text-primary">-->
+<!--                                      <td>-->
 <!--                                          $36,738-->
 <!--                                      </td>-->
 <!--                                  </tr>-->
@@ -68,7 +212,7 @@
 <!--                                      <td>-->
 <!--                                          Sinaai-Waas-->
 <!--                                      </td>-->
-<!--                                      <td class="text-primary">-->
+<!--                                      <td>-->
 <!--                                          $23,789-->
 <!--                                      </td>-->
 <!--                                  </tr>-->
@@ -85,7 +229,7 @@
 <!--                                      <td>-->
 <!--                                          Baileux-->
 <!--                                      </td>-->
-<!--                                      <td class="text-primary">-->
+<!--                                      <td>-->
 <!--                                          $56,142-->
 <!--                                      </td>-->
 <!--                                  </tr>-->
@@ -102,7 +246,7 @@
 <!--                                      <td>-->
 <!--                                          Overland Park-->
 <!--                                      </td>-->
-<!--                                      <td class="text-primary">-->
+<!--                                      <td>-->
 <!--                                          $38,735-->
 <!--                                      </td>-->
 <!--                                  </tr>-->
@@ -119,7 +263,7 @@
 <!--                                      <td>-->
 <!--                                          Feldkirchen in Kärnten-->
 <!--                                      </td>-->
-<!--                                      <td class="text-primary">-->
+<!--                                      <td>-->
 <!--                                          $63,542-->
 <!--                                      </td>-->
 <!--                                  </tr>-->
@@ -136,157 +280,16 @@
 <!--                                      <td>-->
 <!--                                          Gloucester-->
 <!--                                      </td>-->
-<!--                                      <td class="text-primary">-->
+<!--                                      <td>-->
 <!--                                          $78,615-->
 <!--                                      </td>-->
 <!--                                  </tr>-->
-                              </tbody>
-                          </table>
-                      </div>
-                  </div>
-              </div>
-          </div>
-
-
-          <app-landlord-table *ngIf="showLandlordInfo"></app-landlord-table>
-
-
-
-          <div class="col-md-12">
-              <div class="card card-plain">
-                  <div class="card-header card-header-danger">
-                      <h4 class="card-title mt-0"> Table on Plain Background</h4>
-                      <p class="card-category"> Here is a subtitle for this table</p>
-                  </div>
-                  <div class="card-body">
-                      <div class="table-responsive">
-                          <table class="table table-hover">
-                              <thead class="">
-                                  <th>
-                                      ID
-                                  </th>
-                                  <th>
-                                      Name
-                                  </th>
-                                  <th>
-                                      Country
-                                  </th>
-                                  <th>
-                                      City
-                                  </th>
-                                  <th>
-                                      Salary
-                                  </th>
-                              </thead>
-                              <tbody>
-                                  <tr>
-                                      <td>
-                                          1
-                                      </td>
-                                      <td>
-                                          Dakota Rice
-                                      </td>
-                                      <td>
-                                          Niger
-                                      </td>
-                                      <td>
-                                          Oud-Turnhout
-                                      </td>
-                                      <td>
-                                          $36,738
-                                      </td>
-                                  </tr>
-                                  <tr>
-                                      <td>
-                                          2
-                                      </td>
-                                      <td>
-                                          Minerva Hooper
-                                      </td>
-                                      <td>
-                                          Curaçao
-                                      </td>
-                                      <td>
-                                          Sinaai-Waas
-                                      </td>
-                                      <td>
-                                          $23,789
-                                      </td>
-                                  </tr>
-                                  <tr>
-                                      <td>
-                                          3
-                                      </td>
-                                      <td>
-                                          Sage Rodriguez
-                                      </td>
-                                      <td>
-                                          Netherlands
-                                      </td>
-                                      <td>
-                                          Baileux
-                                      </td>
-                                      <td>
-                                          $56,142
-                                      </td>
-                                  </tr>
-                                  <tr>
-                                      <td>
-                                          4
-                                      </td>
-                                      <td>
-                                          Philip Chaney
-                                      </td>
-                                      <td>
-                                          Korea, South
-                                      </td>
-                                      <td>
-                                          Overland Park
-                                      </td>
-                                      <td>
-                                          $38,735
-                                      </td>
-                                  </tr>
-                                  <tr>
-                                      <td>
-                                          5
-                                      </td>
-                                      <td>
-                                          Doris Greene
-                                      </td>
-                                      <td>
-                                          Malawi
-                                      </td>
-                                      <td>
-                                          Feldkirchen in Kärnten
-                                      </td>
-                                      <td>
-                                          $63,542
-                                      </td>
-                                  </tr>
-                                  <tr>
-                                      <td>
-                                          6
-                                      </td>
-                                      <td>
-                                          Mason Porter
-                                      </td>
-                                      <td>
-                                          Chile
-                                      </td>
-                                      <td>
-                                          Gloucester
-                                      </td>
-                                      <td>
-                                          $78,615
-                                      </td>
-                                  </tr>
-                              </tbody>
-                          </table>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
-</div>
+<!--                              </tbody>-->
+<!--                          </table>-->
+<!--                      </div>-->
+<!--                  </div>-->
+<!--              </div>-->
+<!--          </div>-->
+<!--      </div>-->
+<!--  </div>-->
+<!--</div>-->
