@@ -1,4 +1,6 @@
 {
-  "user_name": "plato",
-  "full_name": "Plato Aristotle"
+  "landlord_info":[
+    {"user_name": "plato", "full_name": "Plato Aristotle"},
+    {"user_name": "plato22", "full_name": "Plato Aristotle22"}
+  ]
 }
