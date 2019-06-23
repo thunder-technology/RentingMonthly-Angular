@@ -13,6 +13,7 @@ import { NotificationsComponent } from '../../notifications/notifications.compon
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { HouseRecordingComponent } from '../../house-recording/house-recording.component';
 import { OwnerRecordingComponent } from '../../owner-recording/owner-recording.component';
+import { LandlordTableComponent } from '../../landlord-table/landlord-table.component';
 
 import {
   MatButtonModule,
@@ -48,6 +49,7 @@ import {
     UpgradeComponent,
     HouseRecordingComponent,
     OwnerRecordingComponent,
+    LandlordTableComponent,
   ]
 })
 
