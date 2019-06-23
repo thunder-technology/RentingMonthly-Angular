@@ -1,0 +1,16 @@
+<h3>Get configuration from JSON file</h3>
+<div>
+  <button (click)="clear(); showLandlordInfo()">get</button>
+  <button (click)="clear(); showLandlordInfoResponse()">getResponse</button>
+  <button (click)="clear()">clear</button>
+  <span *ngIf="landlord">
+    <p>user name is "{{landlord.user_name}}"</p>
+    <p>full name is "{{landlord.full_name}}"</p>
+    <div *ngIf="headers">
+      Response headers:
+      <ul>
+        <li *ngFor="let header of headers">{{header}}</li>
+      </ul>
+    </div>
+  </span>
+</div>
