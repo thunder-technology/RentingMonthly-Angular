@@ -1,0 +1,31 @@
+<mat-dialog-content [formGroup]="form">
+    <mat-form-field>
+        <label>
+            <input matInput formControlName="userName" placeholder="What's your user name?" class="form-control" id="userName">
+        </label>
+    </mat-form-field>
+    <mat-form-field>
+        <label>
+            <input matInput formControlName="userName" placeholder="What's your full name?" class="form-control" id="fullName">
+        </label>
+    </mat-form-field>
+    <mat-form-field>
+        <label>
+            <input matInput formControlName="email" placeholder="What's your email address?" class="form-control" id="email">
+        </label>
+    </mat-form-field>
+    <mat-form-field>
+        <label>
+            <input matInput formControlName="contactNumber" placeholder="What's your contact number?" class="form-control" id="contactNumber">
+        </label>
+    </mat-form-field>
+</mat-dialog-content>
+<div mat-dialog-actions>
+    <button mat-button (click)="onClose()">No Thanks</button>
+    <div *ngIf="hasId">
+        <button mat-button mat-raised-button color="warn" [mat-dialog-close]="" (click)="onUpdate()" >Update</button>
+    </div>
+    <div *ngIf="hasId === false">
+        <button mat-button mat-raised-button color="warn" [mat-dialog-close]="" (click)="onCreate()" >Create</button>
+    </div>
+</div>
