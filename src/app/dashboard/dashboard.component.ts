@@ -7,7 +7,6 @@ import * as Chartist from 'chartist';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-
   constructor() { }
   startAnimationForLineChart(chart){
       let seq: any, delays: any, durations: any;

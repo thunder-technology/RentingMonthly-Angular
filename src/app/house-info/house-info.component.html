@@ -1,0 +1,37 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">房源信息列表</h4>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="text-primary">
+                <tr>
+                  <th *ngFor="let header of headers">{{header}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let house of houses">
+                  <th>{{house.address}}</th>
+                  <th>{{house.city}}</th>
+                  <th>{{house.province}}</th>
+                  <th>{{house.houseType}}</th>
+                  <th>{{house.intersection}}</th>
+                  <th>{{house.postCode}}</th>
+                  <th>{{house.totalRooms}}</th>
+                  <th>{{house.desc}}</th>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

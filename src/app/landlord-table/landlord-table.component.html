@@ -1,0 +1,41 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">房东列表</h4>
+                        <button mat-raised-button color="warn" (click)="openDialog()">添加数据</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="text-primary">
+                                    <tr>
+                                        <th *ngFor="let header of headers">
+                                            {{header}}
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let info of userInfo">
+                                        <th>{{info.userId}}</th>
+                                        <th>{{info.fullName}}</th>
+                                        <th>{{info.userName}}</th>
+                                        <th>{{info.email}}</th>
+                                        <th>{{info.contactNumber}}</th>
+                                        <div>
+                                            <button mat-raised-button color="warn" (click)="updateDialog(info)">修改数据</button>
+                                            <button mat-raised-button color="warn" (click)="deleteInfo(info.userId)">删除数据</button>
+                                        </div>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
