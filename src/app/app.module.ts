@@ -1,31 +1,23 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
-
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 
 import { AppComponent } from './app.component';
 
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { UserProfileComponent } from './user-profile/user-profile.component';
-import { TableListComponent } from './table-list/table-list.component';
-import { TypographyComponent } from './typography/typography.component';
-import { IconsComponent } from './icons/icons.component';
-import { MapsComponent } from './maps/maps.component';
-import { NotificationsComponent } from './notifications/notifications.component';
-import { UpgradeComponent } from './upgrade/upgrade.component';
-import { HouseRecordingComponent } from './house-recording/house-recording.component';
-import { OwnerRecordingComponent } from './owner-recording/owner-recording.component';
-
 import {
   AgmCoreModule
 } from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-// import { LandlordTableComponent } from './landlord-table/landlord-table.component';
+import {
+  ConfirmDialogComponent,
+  DialogOverviewExampleDialogComponent,
+} from './landlord-table/landlord-table.component';
+import { MatButtonModule, MatDialogModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 @NgModule({
   imports: [
@@ -33,22 +25,27 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule,
     ComponentsModule,
     RouterModule,
     AppRoutingModule,
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
-    })
+    }),
+    MatFormFieldModule,
+    MatDialogModule,
+    MatInputModule,
+    MatButtonModule,
+    AngularFontAwesomeModule
   ],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    // LandlordTableComponent,
-    // HouseRecordingComponent,
-    // OwnerRecordingComponent,
-
+    DialogOverviewExampleDialogComponent,
+    ConfirmDialogComponent,
   ],
+  entryComponents: [
+      DialogOverviewExampleDialogComponent,
+      ConfirmDialogComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

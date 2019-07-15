@@ -1,40 +1,42 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
+import { HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Info, UserInfo} from '../models/user';
 
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
-
-export interface LLI {
-  user_name: string;
-  full_name: string;
-}
-
-
-export interface LandlordInfo {
-  // user_name: string;
-  // full_name: string;
-  landlord_info: LLI[]
-  // residential_address: string;
-  // contact_number: number;
-  // email: string;
-}
 
 @Injectable({
   providedIn: 'root'
 })
 export class LandlordInfoService {
-  url = 'assets/info.json';
-
+  private url = 'http://rentingmonthlyserver-env.siexzuwthp.us-east-1.elasticbeanstalk.com/users';
   constructor(private http: HttpClient) { }
 
-  getLandlord() {
-    console.log(this.http.get(this.url));
-    return this.http.get<LandlordInfo>(this.url);
+  getInfo(): Observable<Info> {
+    return this.http.get<Info>(this.url);
   }
 
-  getLandlordInfoRes(): Observable<HttpResponse<LandlordInfo>> {
-    return this.http.get<LandlordInfo>(
+  getUserInfoById(id: number): Observable<UserInfo> {
+    return this.http.get<UserInfo>(this.url + '/' + id);
+  }
+
+  deleteUserInfoById(id: number): Observable<HttpResponse<UserInfo>> {
+    return this.http.delete<UserInfo>(this.url + '/' + id, {
+      observe: 'response',
+      responseType: 'json'
+    });
+  }
+
+  postUserInfo(body: UserInfo): Observable<UserInfo> {
+    return this.http.post<UserInfo>(this.url, body);
+  }
+
+  updateUserInfo(body: UserInfo): Observable<UserInfo> {
+    return this.http.put<UserInfo>(this.url + '/' + body.userId, body);
+  }
+
+  private getUserInfoRes(): Observable<HttpResponse<Info>> {
+    return this.http.get<Info>(
         this.url, { observe: 'response', responseType: 'json'}
     );
   }
