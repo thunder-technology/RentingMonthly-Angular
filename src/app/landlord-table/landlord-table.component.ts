@@ -1,9 +1,8 @@
 import {Component, Inject, Injectable, OnChanges, OnInit} from '@angular/core';
 import {LandlordInfoService} from './landlord-info.service';
-import {UserInfo} from '../models/user';
+import {LandlordInfo, LandLordInfoPost, UserInfo} from '../models/user';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {formatNumber} from '@angular/common';
+import {Form, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 
 @Component({
@@ -18,31 +17,32 @@ import {formatNumber} from '@angular/common';
 export class LandlordTableComponent implements OnInit {
     headers: string[];
     userInfo: UserInfo[];
+    landlordInfo: LandlordInfo[];
+    landlordInfoPost: LandLordInfoPost[];
 
     constructor(
         private service: LandlordInfoService,
         private dialog: MatDialog,
     ) {
-        this.headers = ['User Id', 'Full Name', 'User Name', 'Email', 'Contact Number'];
+        this.headers = ['User Id', 'User Name', 'Full Name', 'Email', 'Contact Number', 'Residential Info', 'SIN'];
     }
 
     private openDialog(): void {
         this.dialog.open(DialogOverviewExampleDialogComponent, {
             disableClose: true,
             hasBackdrop: true,
-            width: '30em',
-            minWidth: '30em',
-            data: UserInfo
+            width: '50em',
+            minWidth: '50em'
         });
     }
 
-    private updateDialog(userinfo: UserInfo): void {
+    private updateDialog(data: LandLordInfoPost): void {
         this.dialog.open(DialogOverviewExampleDialogComponent, {
             disableClose: true,
             hasBackdrop: true,
-            width: '30em',
-            minWidth: '30em',
-            data: userinfo,
+            width: '50em',
+            minWidth: '50em',
+            data: data,
         });
     }
 
@@ -50,15 +50,33 @@ export class LandlordTableComponent implements OnInit {
         this.dialog.open(ConfirmDialogComponent, {
             disableClose: true,
             hasBackdrop: true,
-            width: '30em',
-            minWidth: '30em',
+            width: '20em',
+            minWidth: '20em',
             data: id
         });
     }
 
     ngOnInit(): void {
         this.service.getInfo()
-            .subscribe(data => this.userInfo = data._embedded.userInfoes);
+            .subscribe(udata => {
+                this.userInfo = <UserInfo[]>udata._embedded.userInfoes;
+                this.service.getLandlordInfo()
+                    .subscribe(
+                        uinfo => {
+                            this.landlordInfo = <LandlordInfo[]>uinfo._embedded.landlordInfoes;
+                            const buffer = <LandLordInfoPost[]>[];
+                            for (let i = 0; i < this.userInfo.length; i++) {
+                                for (let j = 0; j < this.landlordInfo.length; j++) {
+                                    if (this.userInfo[i].userId === this.landlordInfo[j].landlordId) {
+                                        const object = new LandLordInfoPost(this.userInfo[i], this.landlordInfo[j]);
+                                        buffer.push(object);
+                                    }
+                                }
+                            }
+                            this.landlordInfoPost = buffer;
+                        });
+            });
+
     }
 }
 
@@ -68,45 +86,84 @@ export class LandlordTableComponent implements OnInit {
 })
 export class DialogOverviewExampleDialogComponent implements OnInit {
     form: FormGroup;
-    data: UserInfo;
-    hasId = false;
+    data: LandLordInfoPost;
+    hasId: boolean;
 
     constructor(
         private fb: FormBuilder,
         public dialogRef: MatDialogRef<DialogOverviewExampleDialogComponent>,
         private service: LandlordInfoService,
-        @Inject(MAT_DIALOG_DATA) data: UserInfo
+        @Inject(MAT_DIALOG_DATA) data: LandLordInfoPost
         ) {
         this.data = data;
-        this.hasId = this.data.userId !== undefined;
+        this.hasId = this.data !== null;
     }
-
 
     ngOnInit(): void {
         this.form = this.fb.group({
             fullName: ['', Validators.required],
             userName: ['', Validators.required],
             email: ['', Validators.required],
-            contactNumber: ['', Validators.required]
-        })
+            contactNumber: ['', Validators.required],
+            residentalAddress: ['', Validators.required],
+            sin: ['', Validators.required]
+        });
     }
+
+    get fullName() {return this.form.get('fullName'); }
+    get userName() {return this.form.get('userName'); }
+    get email() {return this.form.get('email'); }
+    get contactNumber() {return this.form.get('contactNumber'); }
+    get residentalAddress() {return this.form.get('residentalAddress'); }
+    get sin() {return this.form.get('sin'); }
 
     onClose(): void {
         this.dialogRef.close();
     }
 
     onCreate(): void {
-        this.service.postUserInfo(this.form.value).subscribe(data => {
-            console.log('post: \n' + data);
-        })
+        this.service.postLandlordInfo(this.parsedInfo()).subscribe(
+            data => console.log(data)
+        );
     }
 
     onUpdate(): void {
-        const constData = <UserInfo>this.form.value;
-        constData.userId = this.data.userId;
-        this.service.updateUserInfo(constData).subscribe(data => {
-            alert('update ' + data);
-        })
+        if (this.form.valid) {
+            this.service.updateLandlordInfo(this.parsedInfo());
+        } else {
+            this.validateAllFormFields(this.form);
+        }
+    }
+
+    private validateAllFormFields(fb: FormGroup) {
+        Object.keys(fb.controls).forEach(field => {
+            const ctrl = fb.get(field);
+            if (ctrl instanceof FormControl) {
+                ctrl.markAsTouched({ onlySelf: true});
+            } else if ( ctrl instanceof FormGroup) {
+                this.validateAllFormFields(ctrl);
+            }
+        });
+    }
+
+    private parsedInfo(): LandLordInfoPost {
+        const data = this.form.getRawValue();
+        const uInfo: UserInfo = new UserInfo(
+            data.fullName,
+            data.userName,
+            data.email,
+            data.contactNumber
+        );
+
+        if (this.hasId) {
+            uInfo.userId = this.data.user.userId;
+        }
+
+        const lInfo: LandlordInfo = new LandlordInfo(
+            data.residentalAddress,
+            data.sin
+        );
+        return new LandLordInfoPost(uInfo, lInfo);
     }
 }
 
@@ -131,8 +188,7 @@ export class ConfirmDialogComponent {
     }
 
     onDelete(): void {
-        this.service.deleteUserInfoById(this.id).subscribe(data => {
-
-        });
+        this.service.deleteUserInfoById(this.id).subscribe(data => console.log(data));
     }
 }
+

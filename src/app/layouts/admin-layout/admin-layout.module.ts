@@ -19,7 +19,7 @@ import {
     MatRippleModule,
     MatFormFieldModule,
     MatTooltipModule,
-    MatSelectModule, MatDialogModule
+    MatSelectModule, MatDialogModule, MatListModule
 } from '@angular/material';
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
 import {HouseInfoComponent} from '../../house-info/house-info.component';
@@ -39,6 +39,7 @@ import {HouseInfoComponent} from '../../house-info/house-info.component';
         MatTooltipModule,
         MatDialogModule,
         AngularFontAwesomeModule,
+        MatListModule,
     ],
   declarations: [
     DashboardComponent,

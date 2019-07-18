@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
-import {Info, UserInfo} from '../models/user';
+import {Info} from '../models/user';
 import {HttpClient, HttpResponse} from '@angular/common/http';
 import {HouseInfo, Houses} from '../models/house';
 
@@ -8,8 +8,7 @@ import {HouseInfo, Houses} from '../models/house';
   providedIn: 'root'
 })
 export class HouseInfoService {
-  private url = 'http://rentingmonthlyserver-env.siexzuwthp.us-east-1.elasticbeanstalk.com/houses';
-
+  private url = 'http://rentingmonthlyserver-env.siexzuwthp.us-east-1.elasticbeanstalk.com/landlords';
   constructor(private http: HttpClient) { }
 
   getInfo(): Observable<HouseInfo> {

@@ -4,7 +4,7 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header card-header-danger">
-            <h4 class="card-title">房源信息录入</h4>
+            <h4 class="card-title">房源信息录入(开发中)</h4>
             <p class="card-category"></p>
           </div>
           <div class="card-body">
@@ -55,6 +55,18 @@
                   <mat-form-field class="example-full-width ">
                     <textarea mat-autosize matInput placeholder="Put your {{houseHeader.desc}} here." formControlName="desc" class="form-control"></textarea>
                   </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-selection-list>
+                    <mat-list-option>
+                      something
+                    </mat-list-option>
+                    <mat-list-option>
+                      something
+                    </mat-list-option>
+                  </mat-selection-list>
                 </div>
               </div>
               <button mat-raised-button type="submit" class="btn btn-danger pull-right" (click)="onSubmit()">Update Profile</button>
