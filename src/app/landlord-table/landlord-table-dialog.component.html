@@ -1,23 +1,93 @@
 <mat-dialog-content [formGroup]="form">
     <mat-form-field>
-        <label>
-            <input matInput formControlName="userName" placeholder="What's your user name?" class="form-control" id="userName">
+        <label *ngIf="hasId">
+            <input matInput formControlName="userName" placeholder="username: {{data.user.userName}}" class="form-control">
         </label>
+        <div *ngIf="!hasId">
+            <label>
+                <input matInput formControlName="userName" placeholder="What's your user name?" class="form-control">
+            </label>
+            <div *ngIf="userName.invalid && (userName.dirty || userName.touched)">
+                <div *ngIf="userName.errors.required">
+                    <label>user name is required.</label>
+                </div>
+            </div>
+        </div>
     </mat-form-field>
     <mat-form-field>
-        <label>
-            <input matInput formControlName="userName" placeholder="What's your full name?" class="form-control" id="fullName">
+        <label *ngIf="hasId">
+            <input matInput formControlName="fullName" placeholder="fullname: {{data.user.fullName}}" class="form-control">
         </label>
+        <div *ngIf="!hasId">
+            <label>
+                <input matInput formControlName="fullName" placeholder="What's your full name?" class="form-control" id="fullName">
+            </label>
+            <div *ngIf="fullName.invalid && (fullName.dirty || fullName.touched)">
+                <div *ngIf="fullName.errors.required">
+                    <label>full name is required.</label>
+                </div>
+            </div>
+        </div>
     </mat-form-field>
     <mat-form-field>
-        <label>
-            <input matInput formControlName="email" placeholder="What's your email address?" class="form-control" id="email">
+        <label *ngIf="hasId">
+            <input matInput formControlName="email" placeholder="email: {{data.user.email}}" class="form-control">
         </label>
+        <div *ngIf="!hasId">
+            <label>
+                <input matInput formControlName="email" placeholder="What's your email address?" class="form-control" id="email">
+            </label>
+            <div *ngIf="email.invalid && (email.dirty || email.touched)">
+                <div *ngIf="email.errors.required">
+                    <label>email is required.</label>
+                </div>
+            </div>
+        </div>
     </mat-form-field>
     <mat-form-field>
-        <label>
-            <input matInput formControlName="contactNumber" placeholder="What's your contact number?" class="form-control" id="contactNumber">
+        <label *ngIf="hasId">
+            <input matInput formControlName="contactNumber" placeholder="contactNumber: {{data.user.contactNumber}}" class="form-control">
         </label>
+        <div *ngIf="!hasId">
+            <label>
+                <input matInput formControlName="contactNumber" placeholder="What's your contact number?" class="form-control" id="contactNumber">
+            </label>
+            <div *ngIf="contactNumber.invalid && (contactNumber.dirty || contactNumber.touched)">
+                <div *ngIf="contactNumber.errors.required">
+                    <label>contactNumber is required.</label>
+                </div>
+            </div>
+        </div>
+    </mat-form-field>
+    <mat-form-field>
+        <label *ngIf="hasId">
+            <input matInput formControlName="residentalAddress" placeholder="residentialAddress: {{data.landlord.residentalAddress}}" class="form-control">
+        </label>
+        <div *ngIf="!hasId">
+            <label>
+                <input matInput formControlName="residentalAddress" placeholder="What's your residential address?" class="form-control" id="residentalAddress">
+            </label>
+            <div *ngIf="residentalAddress.invalid && (residentalAddress.dirty || residentalAddress.touched)">
+                <div *ngIf="residentalAddress.errors.required">
+                    <label>residential address is required.</label>
+                </div>
+            </div>
+        </div>
+    </mat-form-field>
+    <mat-form-field>
+        <label *ngIf="hasId">
+            <input matInput formControlName="sin" placeholder="sin number: {{data.landlord.sin}}" class="form-control">
+        </label>
+        <div *ngIf="!hasId">
+            <label>
+                <input matInput formControlName="sin" placeholder="What's your sin number?" class="form-control" id="sin">
+            </label>
+            <div *ngIf="sin.invalid && (sin.dirty || sin.touched)">
+                <div *ngIf="sin.errors.required">
+                    <label>sin number is required.</label>
+                </div>
+            </div>
+        </div>
     </mat-form-field>
 </mat-dialog-content>
 <div mat-dialog-actions>
@@ -26,6 +96,6 @@
         <button mat-button mat-raised-button color="warn" [mat-dialog-close]="" (click)="onUpdate()" >Update</button>
     </div>
     <div *ngIf="hasId === false">
-        <button mat-button mat-raised-button color="warn" [mat-dialog-close]="" (click)="onCreate()" >Create</button>
+        <button mat-button mat-raised-button color="warn" [mat-dialog-close]="" [disabled]="! form.valid" (click)="onCreate()" >Create</button>
     </div>
 </div>

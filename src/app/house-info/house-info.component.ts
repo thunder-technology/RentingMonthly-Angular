@@ -21,5 +21,4 @@ export class HouseInfoComponent implements OnInit {
           this.houses = data._embedded.houses;
         });
   }
-
 }

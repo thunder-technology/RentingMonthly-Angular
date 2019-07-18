@@ -18,15 +18,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let info of userInfo">
-                                        <th>{{info.userId}}</th>
-                                        <th>{{info.fullName}}</th>
-                                        <th>{{info.userName}}</th>
-                                        <th>{{info.email}}</th>
-                                        <th>{{info.contactNumber}}</th>
+                                    <tr *ngFor="let i of landlordInfoPost" >
+                                        <th>{{i.user.userId}}</th>
+                                        <th>{{i.user.userName}}</th>
+                                        <th>{{i.user.fullName}}</th>
+                                        <th>{{i.user.email}}</th>
+                                        <th>{{i.user.contactNumber}}</th>
+                                        <th>{{i.landlord.residentalAddress}}</th>
+                                        <th>{{i.landlord.sin}}</th>
                                         <div>
-                                            <button mat-raised-button color="warn" (click)="updateDialog(info)">修改数据</button>
-                                            <button mat-raised-button color="warn" (click)="deleteInfo(info.userId)">删除数据</button>
+                                            <button mat-raised-button color="warn" (click)="updateDialog(i)">修改数据</button>
+                                            <button mat-raised-button color="warn" (click)="deleteInfo(i.user.userId)">删除数据</button>
                                         </div>
                                     </tr>
                                 </tbody>

@@ -1,11 +1,29 @@
 import {HouseInfo, Houses} from './house';
 
+export class LandlordInfo {
+    landlordId?: number;
+    residentalAddress: string;
+    sin: string;
+    rents?: string[];
+
+    public constructor(
+        residentalAddress: string,
+        sin: string,
+        landlordId?: number,
+        rents?: string[]) {
+        this.residentalAddress = residentalAddress;
+        this.landlordId = landlordId;
+        this.sin = sin;
+        this.rents = rents;
+    }
+}
+
 export class UserInfo {
-    userId: number;
     contactNumber: string;
     email: string;
     fullName: string;
     userName: string;
+    userId?: number;
     userType?: number;
     photoId?: string;
     photoIdPicUri?: string;
@@ -21,7 +39,7 @@ export class UserInfo {
         userName: string,
         email: string,
         contactNumber: string,
-        userId: number,
+        userId?: number,
         userType?: number,
         residentInfo?: string,
         photoId?: string,
@@ -36,7 +54,7 @@ export class UserInfo {
         this.email = email;
         this.userName = userName;
         this.contactNumber = contactNumber;
-        this.userType = 0;
+        this.userType = userType;
         this.photoId = photoId;
         this.photoIdPicUri = photoIdPicUri;
         this.photoIdType = photoIdType;
@@ -45,13 +63,25 @@ export class UserInfo {
         this._links = _links;
         this.avatarUri = avatarUri;
     }
+}
 
+export class LandLordInfoPost {
+    landlord?: LandlordInfo;
+    user: UserInfo;
 
+    constructor(
+        user: UserInfo,
+        landlord?: LandlordInfo
+    ) {
+        this.landlord = landlord;
+        this.user = user;
+    }
 }
 
 export class Embedded {
     userInfoes?: UserInfo[];
     houses?: Houses[];
+    landlordInfoes?: LandlordInfo[];
 
     public constructor() {
     }
