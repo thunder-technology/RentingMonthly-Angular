@@ -1,8 +1,10 @@
-import {Component, Inject, Injectable, OnChanges, OnInit} from '@angular/core';
+import {Component, Inject, Injectable, OnChanges, OnInit, ɵChangeDetectorStatus} from '@angular/core';
 import {LandlordInfoService} from './landlord-info.service';
 import {LandlordInfo, LandLordInfoPost, UserInfo} from '../models/user';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
-import {Form, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, Form, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {unwatchFile} from 'fs';
+import {Equal} from 'tslint/lib/utils';
 
 
 @Component({
@@ -122,17 +124,16 @@ export class DialogOverviewExampleDialogComponent implements OnInit {
     }
 
     onCreate(): void {
-        this.service.postLandlordInfo(this.parsedInfo()).subscribe(
-            data => console.log(data)
-        );
-    }
-
-    onUpdate(): void {
         if (this.form.valid) {
-            this.service.updateLandlordInfo(this.parsedInfo());
+            this.service.postLandlordInfo(this.parsedInfo()).subscribe(data => console.log(data));
         } else {
             this.validateAllFormFields(this.form);
         }
+    }
+
+    onUpdate(): void {
+        this.service.updateUserInfo(this.parseUserForPut()).subscribe(data => console.log(data));
+        this.service.updateLandLordInfo(this.parsedLandlordForPut()).subscribe(data => console.log(data));
     }
 
     private validateAllFormFields(fb: FormGroup) {
@@ -146,12 +147,39 @@ export class DialogOverviewExampleDialogComponent implements OnInit {
         });
     }
 
+
+    private parseUserForPut(): UserInfo {
+        const data = this.form.getRawValue();
+        console.log(data);
+        const uInfo: UserInfo = new UserInfo(
+            data.fullName === '' ? this.data.user.fullName : data.fullName,
+            data.userName === '' ? this.data.user.userName : data.userName,
+            data.email === '' ? this.data.user.email : data.email,
+            data.contactNumber === '' ? this.data.user.contactNumber : data.contactNumber,
+            this.data.user.userId
+        );
+        return uInfo;
+    }
+
+    private parsedLandlordForPut(): LandlordInfo {
+        const data = this.form.getRawValue();
+        console.log(data);
+        // uInfo.userId === lInfo.landlordId
+        const lInfo: LandlordInfo = new LandlordInfo(
+            data.residentalAddress === '' ? this.data.landlord.residentalAddress : data.residentalAddress,
+            data.sin === '' ? this.data.landlord.sin : data.sin,
+            this.data.user.userId,
+        );
+        return lInfo;
+    }
+
     private parsedInfo(): LandLordInfoPost {
         const data = this.form.getRawValue();
+
         const uInfo: UserInfo = new UserInfo(
             data.fullName,
             data.userName,
-            data.email,
+            data.email ,
             data.contactNumber
         );
 
@@ -159,9 +187,11 @@ export class DialogOverviewExampleDialogComponent implements OnInit {
             uInfo.userId = this.data.user.userId;
         }
 
+        // uInfo.userId === lInfo.landlordId
         const lInfo: LandlordInfo = new LandlordInfo(
             data.residentalAddress,
-            data.sin
+            data.sin,
+            uInfo.userId,
         );
         return new LandLordInfoPost(uInfo, lInfo);
     }

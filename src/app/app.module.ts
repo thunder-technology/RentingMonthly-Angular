@@ -18,6 +18,7 @@ import {
 } from './landlord-table/landlord-table.component';
 import { MatButtonModule, MatDialogModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { ExtraInfoComponent } from './extra-info/extra-info.component';
 
 @NgModule({
   imports: [
@@ -42,6 +43,7 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
     AdminLayoutComponent,
     DialogOverviewExampleDialogComponent,
     ConfirmDialogComponent,
+    ExtraInfoComponent,
   ],
   entryComponents: [
       DialogOverviewExampleDialogComponent,

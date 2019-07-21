@@ -8,35 +8,45 @@ import {HouseInfo, Houses} from '../models/house';
   providedIn: 'root'
 })
 export class HouseInfoService {
-  private url = 'http://rentingmonthlyserver-env.siexzuwthp.us-east-1.elasticbeanstalk.com/landlords';
+  private api = 'api.rentingmonthly.com';
+  private urlHouse = this.api + '/houses';
+  private urlLandlord = this.api + '/landlords';
+
+  // private urlLandlord = 'http://rentingmonthlyserver-env.siexzuwthp.us-east-1.elasticbeanstalk.com/landlords';
+  // private urlHouse = 'http://rentingmonthlyserver-env.siexzuwthp.us-east-1.elasticbeanstalk.com/houses';
+
   constructor(private http: HttpClient) { }
 
   getInfo(): Observable<HouseInfo> {
-    return this.http.get<HouseInfo>(this.url);
+    return this.http.get<HouseInfo>(this.urlHouse);
   }
 
-  getHouseInfoById(id: number): Observable<HouseInfo> {
-    return this.http.get<HouseInfo>(this.url + '/' + id);
+  postHouseInfoByLandLordId(id: number): Observable<HouseInfo> {
+    return this.http.get<HouseInfo>(this.urlLandlord + '/' + id + 'houses');
   }
 
-  deleteHouseInfoById(id: number): Observable<HttpResponse<HouseInfo>> {
-    return this.http.delete<HouseInfo>(this.url + '/' + id, {
+  getHouseInfoByLandLordId(id: number): Observable<HouseInfo> {
+    return this.http.get<HouseInfo>(this.urlLandlord + '/' + id + 'houses');
+  }
+
+  deleteHouseInfoByLandLordId(id: number): Observable<HttpResponse<HouseInfo>> {
+    return this.http.delete<HouseInfo>(this.urlLandlord + '/' + 'house', {
       observe: 'response',
       responseType: 'json'
     });
   }
 
   postHouseInfo(body: Houses): Observable<Houses> {
-    return this.http.post<Houses>(this.url, body);
+    return this.http.post<Houses>(this.urlLandlord, body);
   }
 
   updateHouseInfo(body: Houses): Observable<Houses> {
-    return this.http.put<Houses>(this.url, body);
+    return this.http.put<Houses>(this.urlLandlord, body);
   }
 
   private getHouseInfoRes(): Observable<HttpResponse<Info>> {
     return this.http.get<Info>(
-        this.url, { observe: 'response', responseType: 'json'}
+        this.urlLandlord, { observe: 'response', responseType: 'json'}
     );
   }
 }

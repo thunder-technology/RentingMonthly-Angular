@@ -9,9 +9,14 @@ import {Info, LandlordInfo, LandLordInfoPost, UserInfo} from '../models/user';
   providedIn: 'root'
 })
 export class LandlordInfoService {
-  private url = 'http://rentingmonthlyserver-env.siexzuwthp.us-east-1.elasticbeanstalk.com/users/';
-  private urlLandLordPost = 'http://rentingmonthlyserver-env.siexzuwthp.us-east-1.elasticbeanstalk.com/landlords/';
-  private urlLandLord = 'http://rentingmonthlyserver-env.siexzuwthp.us-east-1.elasticbeanstalk.com/landlords';
+  private api = 'api.rentingmonthly.com';
+  private url = this.api + '/users/';
+  private urlLandLordSlash = this.api + '/landlords/';
+  private urlLandLord = this.api + '/landlords';
+  // private local = 'http://rentingmonthlyserver-env.siexzuwthp.us-east-1.elasticbeanstalk.com';
+  // private url = 'http://rentingmonthlyserver-env.siexzuwthp.us-east-1.elasticbeanstalk.com/users/';
+  // private urlLandLordSlash = 'http://rentingmonthlyserver-env.siexzuwthp.us-east-1.elasticbeanstalk.com/landlords/';
+  // private urlLandLord = 'http://rentingmonthlyserver-env.siexzuwthp.us-east-1.elasticbeanstalk.com/landlords';
 
   constructor(private http: HttpClient) { }
 
@@ -32,7 +37,7 @@ export class LandlordInfoService {
   }
 
   deleteLandlordById(id: number): Observable<HttpResponse<LandLordInfoPost>> {
-    return this.http.delete<LandLordInfoPost>(this.urlLandLordPost + '/' + id, {
+    return this.http.delete<LandLordInfoPost>(this.urlLandLord + '/' + id, {
       observe: 'response',
       responseType: 'json'
     });
@@ -46,11 +51,11 @@ export class LandlordInfoService {
   }
 
   postLandlordInfo(body: LandLordInfoPost): Observable<LandLordInfoPost> {
-    return this.http.post<LandLordInfoPost>(this.urlLandLordPost, body);
+    return this.http.post<LandLordInfoPost>(this.urlLandLordSlash, body);
   }
 
   postLandlordInfoRes(body: LandLordInfoPost): Observable<HttpResponse<LandLordInfoPost>> {
-    return this.http.post<LandLordInfoPost>(this.urlLandLordPost, body, {
+    return this.http.post<LandLordInfoPost>(this.urlLandLordSlash, body, {
       observe: 'response',
       responseType: 'json'
     });
@@ -60,8 +65,8 @@ export class LandlordInfoService {
     return this.http.put<UserInfo>(this.url + '/' + body.userId, body);
   }
 
-  updateLandlordInfo(body: LandLordInfoPost): Observable<LandLordInfoPost> {
-    return this.http.put<LandLordInfoPost>(this.urlLandLordPost + '/' + body.user.userId + '/', body);
+  updateLandLordInfo(body: LandlordInfo): Observable<LandlordInfo> {
+    return this.http.put<LandlordInfo>(this.urlLandLord + '/' + body.landlordId, body);
   }
 
   private getUserInfoRes(): Observable<HttpResponse<Info>> {
