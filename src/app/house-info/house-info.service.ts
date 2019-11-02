@@ -3,25 +3,20 @@ import {Observable} from 'rxjs';
 import {Info} from '../models/user';
 import {HttpClient, HttpResponse} from '@angular/common/http';
 import {HouseExtraInfo, HouseInfo, Houses} from '../models/house';
+import {Url} from '../models/url';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HouseInfoService {
-  // private api = 'https://api.rentingmonthly.com';
-  // private urlHouse = this.api + '/houses';
-  // private urlHouseExtraInfoes = this.api + '/houseExtraInfoes';
-  // private urlLandlord = this.api + '/landlords';
+  urlHouse: string;
+  urlHouseExtraInfoes: string;
+  urlLandlord: string;
 
-  private url = 'http://rentingmonthlyserver-env.siexzuwthp.us-east-1.elasticbeanstalk.com';
-  private urlHouse = this.url + '/houses';
-  private urlHouseExtraInfoes = this.url + '/houseExtraInfoes';
-  private urlLandlord = this.url + '/landlords';
-
-  constructor(private http: HttpClient) { }
-
-  postHouseInfoByLandLordId(id: number): Observable<HouseInfo> {
-    return this.http.get<HouseInfo>(this.urlLandlord + '/' + id + 'houses');
+  constructor(private http: HttpClient) {
+    this.urlHouse = Url.url + '/houses';
+    this.urlHouseExtraInfoes = Url.url + '/houseExtraInfoes';
+    this.urlLandlord = Url.url + '/landlords';
   }
 
   getHouseInfo(): Observable<HouseInfo> {
@@ -32,8 +27,25 @@ export class HouseInfoService {
     return this.http.get<Houses>(this.urlHouse + '/' + id);
   }
 
-  getHouseExtraInfo(): Observable<HouseInfo> {
-    return this.http.get<HouseInfo>(this.urlHouseExtraInfoes);
+  deleteHouseInfoByHouseId(id: number): Observable<HttpResponse<HouseInfo>> {
+    return this.http.delete<HouseInfo>(this.urlHouse + '/' + id, {
+      observe: 'response',
+      responseType: 'json'
+    })
+  }
+
+  postHouseInfo(body: Houses): Observable<Houses> {
+    return this.http.post<Houses>(this.urlHouse, {
+      observe: 'response',
+      responseType: 'json'
+    })
+  }
+
+  putHouseInfo(body: Houses, id: number): Observable<Houses> {
+    return this.http.put<Houses>(this.urlHouse + '/' + id, {
+      observe: 'response',
+      responseType: 'json'
+    })
   }
 
   getHouseInfoByLandLordId(id: number): Observable<HouseInfo> {
@@ -47,16 +59,8 @@ export class HouseInfoService {
     });
   }
 
-  deleteHouseInfoByHouseId(id: number): Observable<HttpResponse<HouseInfo>> {
-    return this.http.delete<HouseInfo>(this.urlHouse + '/' + id, {
-      observe: 'response',
-      responseType: 'json'
-    })
-  }
 
-  postHouseInfo(body: Houses): Observable<Houses> {
-    return this.http.post<Houses>(this.urlLandlord, body);
-  }
+
 
   updateHouseInfo(body: Houses): Observable<Houses> {
     return this.http.put<Houses>(this.urlLandlord, body);

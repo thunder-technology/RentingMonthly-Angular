@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HouseInfoComponent } from './house-info.component';
+import { ResidentDialogComponent } from './resident-dialog.component';
 
-describe('HouseInfoComponent', () => {
-  let component: HouseInfoComponent;
-  let fixture: ComponentFixture<HouseInfoComponent>;
+describe('ResidentDialogComponent', () => {
+  let component: ResidentDialogComponent;
+  let fixture: ComponentFixture<ResidentDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HouseInfoComponent ]
+      declarations: [ ResidentDialogComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HouseInfoComponent);
+    fixture = TestBed.createComponent(ResidentDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -22,8 +22,4 @@ describe('HouseInfoComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  it('data contains', () => {
-    
-  })
 });

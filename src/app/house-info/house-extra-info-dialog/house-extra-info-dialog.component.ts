@@ -27,14 +27,9 @@ export class HouseExtraInfoDialogComponent implements OnInit {
     this.service.getHouseInfoByHouseId(this.id).subscribe(data => {
       console.log(data);
       this.houseExtraInfo = data.houseExtraInfo;
-      // this.parseHouseExtraInfo();
     });
   }
 
-  // parseHouseExtraInfo() {
-  //   this.visualArray = Object.values(this.houseExtraInfo);
-  //   console.log(this.visualArray);
-  // }
 
   onClose(): void {
     this.dialogRef.close();

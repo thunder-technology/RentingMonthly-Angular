@@ -1,7 +1,7 @@
 <mat-dialog-content [formGroup]="form">
     <mat-form-field>
         <label *ngIf="hasId">
-            <input matInput formControlName="userName" placeholder="username: {{data.user.userName}}" class="form-control">
+            <input matInput formControlName="userName" placeholder="username: {{data.userName}}" class="form-control">
         </label>
         <div *ngIf="!hasId">
             <label>
@@ -16,7 +16,7 @@
     </mat-form-field>
     <mat-form-field>
         <label *ngIf="hasId">
-            <input matInput formControlName="fullName" placeholder="fullname: {{data.user.fullName}}" class="form-control">
+            <input matInput formControlName="fullName" placeholder="fullname: {{data.fullName}}" class="form-control">
         </label>
         <div *ngIf="!hasId">
             <label>
@@ -31,7 +31,7 @@
     </mat-form-field>
     <mat-form-field>
         <label *ngIf="hasId">
-            <input matInput formControlName="email" placeholder="email: {{data.user.email}}" class="form-control">
+            <input matInput formControlName="email" placeholder="email: {{data.email}}" class="form-control">
         </label>
         <div *ngIf="!hasId">
             <label>
@@ -46,7 +46,7 @@
     </mat-form-field>
     <mat-form-field>
         <label *ngIf="hasId">
-            <input matInput formControlName="contactNumber" placeholder="contactNumber: {{data.user.contactNumber}}" class="form-control">
+            <input matInput formControlName="contactNumber" placeholder="contactNumber: {{data.contactNumber}}" class="form-control">
         </label>
         <div *ngIf="!hasId">
             <label>
@@ -61,7 +61,7 @@
     </mat-form-field>
     <mat-form-field>
         <label *ngIf="hasId">
-            <input matInput formControlName="residentalAddress" placeholder="residentialAddress: {{data.landlord.residentalAddress}}" class="form-control">
+            <input matInput formControlName="residentalAddress" placeholder="residentialAddress: {{data.residentalAddress}}" class="form-control">
         </label>
         <div *ngIf="!hasId">
             <label>
@@ -76,7 +76,7 @@
     </mat-form-field>
     <mat-form-field>
         <label *ngIf="hasId">
-            <input matInput formControlName="sin" placeholder="sin number: {{data.landlord.sin}}" class="form-control">
+            <input matInput formControlName="sin" placeholder="sin number: {{data.sin}}" class="form-control">
         </label>
         <div *ngIf="!hasId">
             <label>

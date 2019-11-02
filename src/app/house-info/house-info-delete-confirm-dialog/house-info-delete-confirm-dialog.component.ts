@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {LandlordInfoService} from '../../landlord-table/landlord-info.service';
-import {DialogOverviewExampleDialogComponent} from '../../landlord-table/landlord-table.component';
+import {DialogComponent} from '../../landlord-table/landlord-table.component';
 import {HouseInfoService} from '../house-info.service';
 
 @Component({
@@ -14,7 +14,7 @@ export class HouseInfoDeleteConfirmDialogComponent {
   id: number;
 
   constructor(
-      public dialogRef: MatDialogRef<DialogOverviewExampleDialogComponent>,
+      public dialogRef: MatDialogRef<DialogComponent>,
       private service: HouseInfoService,
       @Inject(MAT_DIALOG_DATA) id: number
   ) {

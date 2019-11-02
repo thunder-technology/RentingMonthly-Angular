@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HouseInfoComponent } from './house-info.component';
+import { ResidentTableComponent } from './resident-table.component';
 
-describe('HouseInfoComponent', () => {
-  let component: HouseInfoComponent;
-  let fixture: ComponentFixture<HouseInfoComponent>;
+describe('ResidentTableComponent', () => {
+  let component: ResidentTableComponent;
+  let fixture: ComponentFixture<ResidentTableComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HouseInfoComponent ]
+      declarations: [ ResidentTableComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HouseInfoComponent);
+    fixture = TestBed.createComponent(ResidentTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -22,8 +22,4 @@ describe('HouseInfoComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  it('data contains', () => {
-    
-  })
 });

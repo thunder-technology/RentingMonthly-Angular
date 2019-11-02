@@ -1,130 +1,120 @@
-import {HouseExtraInfo, HouseInfo, Houses} from './house';
+import {HouseExtraInfo, Houses} from './house';
 
 export class LandlordInfo {
-    landlordId?: number;
-    residentalAddress: string;
-    sin: string;
-    rents?: string[];
-
-    public constructor(
-        residentalAddress: string,
-        sin: string,
-        landlordId?: number,
-        rents?: string[]) {
-        this.residentalAddress = residentalAddress;
-        this.landlordId = landlordId;
-        this.sin = sin;
-        this.rents = rents;
-    }
-}
-
-export class UserInfo {
+    userId: number;
     contactNumber: string;
     email: string;
     fullName: string;
     userName: string;
-    userId?: number;
-    userType?: number;
+    residentalAddress: string;
+    sin: string;
+    comments?: string[];
+    avatarUri?: string;
     photoId?: string;
     photoIdPicUri?: string;
-    photoIdType?: string;
-    comments?: string[];
-    credentials?: string;
-    _links?: Links;
-    avatarUri?: string;
-
+    photoIdType?: number;
 
     public constructor(
+        contactNumber: string,
+        email: string,
         fullName: string,
         userName: string,
-        email: string,
-        contactNumber: string,
+        userType: number,
+        residentalAddress: string,
+        sin: string,
         userId?: number,
-        userType?: number,
-        residentInfo?: string,
+        comments?: string,
+        avatarUri?: string,
         photoId?: string,
         photoIdPicUri?: string,
-        photoIdType?: string,
-        comments?: string[],
-        credentials?: string,
-        _links?: Links,
-        avatarUri?: string) {
-        this.userId = userId;
-        this.fullName = fullName;
-        this.email = email;
-        this.userName = userName;
+        photoIdType?: number
+    ) {
         this.contactNumber = contactNumber;
-        this.userType = userType;
+        this.email = email;
+        this.fullName = fullName;
+        this.userName = userName;
+        this.residentalAddress = residentalAddress;
+        this.sin = sin;
+        this.userId = userId;
+        this.comments.fill(comments);
+        this.avatarUri = avatarUri;
         this.photoId = photoId;
         this.photoIdPicUri = photoIdPicUri;
         this.photoIdType = photoIdType;
-        this.comments = comments;
-        this.credentials = credentials;
-        this._links = _links;
-        this.avatarUri = avatarUri;
     }
 }
 
-export class LandLordInfoPost {
-    landlord?: LandlordInfo;
-    user: UserInfo;
+export class ResidentInfo {
+    userId: number;
+    bankingRunoverUri: string;
+    creditCardNo: string;
+    creditCardType: string;
+    email: string;
+    userName: string;
+    fullName: string;
+    contactNumber: string;
+    avatarUri: string;
+    photoId: string;
+    photoIdPicUri: string;
+    photoIdType: string;
+    rents: Object;
 
     constructor(
-        user: UserInfo,
-        landlord?: LandlordInfo
+        userName: string,
+        fullName: string,
+        contactNumber: string,
+        email: string,
+        avatarUri: string,
+        rents?: Object,
+        userId?: number,
+        bankingRunoverUri?: string,
+        creditCardNo?: string,
+        creditCardType?: string,
+        photoId?: string,
+        photoIdPicUri?: string,
+        photoIdType?: string
     ) {
-        this.landlord = landlord;
-        this.user = user;
+        this.userName = userName || '-';
+        this.fullName = fullName || '-';
+        this.contactNumber = contactNumber || '-';
+        this.email = email || '-';
+        this.rents = rents || '-';
+        this.avatarUri = avatarUri || '-';
+        this.userId = userId;
+        this.bankingRunoverUri = bankingRunoverUri || '-';
+        this.creditCardNo = creditCardNo || '-';
+        this.creditCardType = creditCardType || '-';
+        this.photoId = photoId || '-';
+        this.photoIdPicUri = photoIdPicUri || '-';
+        this.photoIdType = photoIdType || '-';
     }
 }
 
-export class Embedded {
-    userInfoes?: UserInfo[];
+export interface Embedded {
+    residentInfoes?: ResidentInfo[];
     houses?: Houses[];
     houseExtraInfoes?: HouseExtraInfo[];
     landlordInfoes?: LandlordInfo[];
-
-    public constructor() {
-    }
 }
 
-export class Links {
+export interface Links {
     self: string;
-
     userInfo?: string;
     landlordInfo?: string;
-
     profile?: string;
     search?: string;
 
-    constructor(self: string,
-                userInfo?: string,
-                landlordInfo?: string,
-                profile?: string,
-                search?: string) {
-        this.self = self;
-        this.userInfo = userInfo;
-        this.landlordInfo = landlordInfo;
-        this.profile = profile;
-        this.search = search;
-    }
 }
 
-export class Page {
+export interface Page {
     size: number;
     totalElements: number;
     totalPages: number;
     number: number;
 }
 
-export class Info {
+export interface Info {
     _embedded: Embedded;
-    _links?: Links;
+    _links: Links;
     page: Page;
-
-    public constructor() {
-        this._embedded = new Embedded();
-        this._links = new Links('', '', '');
-        this.page = new Page();
-    }
 }

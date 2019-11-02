@@ -3,6 +3,7 @@ import {HouseExtraInfo, Houses} from '../models/house';
 import {HouseRecordingService} from './house-recording.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatListOption, MatSelectionList} from '@angular/material';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-house-recording',
@@ -20,7 +21,8 @@ export class HouseRecordingComponent implements OnInit {
   private isLandlordIdValid: boolean;
 
   constructor(private service: HouseRecordingService,
-              private fb: FormBuilder) {
+              private fb: FormBuilder,
+              private router: Router) {
     this.houseInfo = [];
     this.extraInfoHeader = [
         'Does it have Air Conditioner ?',
@@ -57,7 +59,8 @@ export class HouseRecordingComponent implements OnInit {
     this.houseTypeSelection = ['Town House', 'House', 'Condo', 'Apartment'];
   }
 
-  get landlordId() {return this.form.get('landlordId')}
+  get residentId() {return this.form.get('residentId')};
+  get landlordId() {return this.form.get('landlordId')};
   get address() {return this.form.get('address')};
   get city() {return this.form.get('city')};
   get desc() {return this.form.get('desc')};
@@ -79,6 +82,7 @@ export class HouseRecordingComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.fb.group({
       landlordId: ['', Validators.required],
+      residentId: ['', Validators.required],
       address: ['', Validators.required],
       city: ['', Validators.required],
       desc: ['', Validators.required],
@@ -119,8 +123,6 @@ export class HouseRecordingComponent implements OnInit {
     for (let i = 0; i < arr.length; i++) {
       for (let j = 0; j < this.extraInfo.length; j++) {
         const buf = <string>this.extraInfo[j];
-        console.log(buf);
-        console.log(arr[i]);
         if (buf === arr[i]) {
           fg.patchValue({[buf]: '1'});
         }
@@ -131,9 +133,9 @@ export class HouseRecordingComponent implements OnInit {
   onSubmit(): void {
     if (this.form.valid) {
         const house = <Houses>this.form.value;
-        //this.service.postHouseInfo(house, this.form.get('landlordId');
     } else {
       this.validateAllFormFields(this.form);
     }
+    this.router.navigate(['house-info']);
   }
 }

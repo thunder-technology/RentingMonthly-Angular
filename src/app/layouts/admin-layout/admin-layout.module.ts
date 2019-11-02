@@ -10,7 +10,6 @@ import { IconsComponent } from '../../icons/icons.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { HouseRecordingComponent } from '../../house-recording/house-recording.component';
-import { OwnerRecordingComponent } from '../../owner-recording/owner-recording.component';
 import { LandlordTableComponent } from '../../landlord-table/landlord-table.component';
 
 import {
@@ -23,6 +22,7 @@ import {
 } from '@angular/material';
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
 import {HouseInfoComponent} from '../../house-info/house-info.component';
+import {ResidentTableComponent} from '../../resident-table/resident-table.component';
 
 
 @NgModule({
@@ -49,10 +49,10 @@ import {HouseInfoComponent} from '../../house-info/house-info.component';
     NotificationsComponent,
     UpgradeComponent,
     HouseRecordingComponent,
-    OwnerRecordingComponent,
     LandlordTableComponent,
       HouseInfoComponent,
-      HouseRecordingComponent
+      HouseRecordingComponent,
+      ResidentTableComponent
   ]
 })
 
