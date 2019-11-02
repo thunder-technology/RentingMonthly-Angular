@@ -9,14 +9,15 @@ import {Info, LandlordInfo, LandLordInfoPost, UserInfo} from '../models/user';
   providedIn: 'root'
 })
 export class LandlordInfoService {
-  private api = 'api.rentingmonthly.com';
-  private url = this.api + '/users/';
-  private urlLandLordSlash = this.api + '/landlords/';
-  private urlLandLord = this.api + '/landlords';
-  // private local = 'http://rentingmonthlyserver-env.siexzuwthp.us-east-1.elasticbeanstalk.com';
-  // private url = 'http://rentingmonthlyserver-env.siexzuwthp.us-east-1.elasticbeanstalk.com/users/';
-  // private urlLandLordSlash = 'http://rentingmonthlyserver-env.siexzuwthp.us-east-1.elasticbeanstalk.com/landlords/';
-  // private urlLandLord = 'http://rentingmonthlyserver-env.siexzuwthp.us-east-1.elasticbeanstalk.com/landlords';
+  // private api = 'https://api.rentingmonthly.com';
+  // private url = this.api + '/users/';
+  // private urlLandLordSlash = this.api + '/landlords/';
+  // private urlLandLord = this.api + '/landlords';
+
+  private local = 'http://rentingmonthlyserver-env.siexzuwthp.us-east-1.elasticbeanstalk.com';
+  private url = 'http://rentingmonthlyserver-env.siexzuwthp.us-east-1.elasticbeanstalk.com/users/';
+  private urlLandLordSlash = 'http://rentingmonthlyserver-env.siexzuwthp.us-east-1.elasticbeanstalk.com/landlords/';
+  private urlLandLord = 'http://rentingmonthlyserver-env.siexzuwthp.us-east-1.elasticbeanstalk.com/landlords';
 
   constructor(private http: HttpClient) { }
 
@@ -65,13 +66,18 @@ export class LandlordInfoService {
     return this.http.put<UserInfo>(this.url + '/' + body.userId, body);
   }
 
-  updateLandLordInfo(body: LandlordInfo): Observable<LandlordInfo> {
-    return this.http.put<LandlordInfo>(this.urlLandLord + '/' + body.landlordId, body);
+  updateLandLordInfo(body: LandlordInfo): Observable<HttpResponse<LandlordInfo>> {
+    return this.http.put<LandlordInfo>(this.urlLandLord + '/' + body.landlordId, body, {
+      observe: 'response',
+      responseType: 'json'
+    });
   }
 
-  private getUserInfoRes(): Observable<HttpResponse<Info>> {
+  getUserInfoRes(): Observable<HttpResponse<Info>> {
     return this.http.get<Info>(
         this.url, { observe: 'response', responseType: 'json'}
     );
   }
+
+
 }

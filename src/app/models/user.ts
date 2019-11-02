@@ -1,4 +1,4 @@
-import {HouseInfo, Houses} from './house';
+import {HouseExtraInfo, HouseInfo, Houses} from './house';
 
 export class LandlordInfo {
     landlordId?: number;
@@ -81,6 +81,7 @@ export class LandLordInfoPost {
 export class Embedded {
     userInfoes?: UserInfo[];
     houses?: Houses[];
+    houseExtraInfoes?: HouseExtraInfo[];
     landlordInfoes?: LandlordInfo[];
 
     public constructor() {

@@ -13,41 +13,47 @@ import {
 } from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import {
-  ConfirmDialogComponent,
-  DialogOverviewExampleDialogComponent,
+    ConfirmDialogComponent,
+    DialogOverviewExampleDialogComponent,
 } from './landlord-table/landlord-table.component';
-import { MatButtonModule, MatDialogModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import {MatButtonModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatListModule} from '@angular/material';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
-import { ExtraInfoComponent } from './extra-info/extra-info.component';
+import { HouseExtraInfoDialogComponent } from './house-info/house-extra-info-dialog/house-extra-info-dialog.component';
+import { HouseInfoDeleteConfirmDialogComponent } from
+        './house-info/house-info-delete-confirm-dialog/house-info-delete-confirm-dialog.component';
 
 @NgModule({
-  imports: [
-    HttpClientModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    ReactiveFormsModule,
-    ComponentsModule,
-    RouterModule,
-    AppRoutingModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
-    }),
-    MatFormFieldModule,
-    MatDialogModule,
-    MatInputModule,
-    MatButtonModule,
-    AngularFontAwesomeModule
-  ],
+    imports: [
+        HttpClientModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        ReactiveFormsModule,
+        ComponentsModule,
+        RouterModule,
+        AppRoutingModule,
+        AgmCoreModule.forRoot({
+            apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
+        }),
+        MatFormFieldModule,
+        MatDialogModule,
+        MatInputModule,
+        MatButtonModule,
+        AngularFontAwesomeModule,
+        MatListModule
+    ],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
     DialogOverviewExampleDialogComponent,
     ConfirmDialogComponent,
-    ExtraInfoComponent,
+    HouseExtraInfoDialogComponent,
+    HouseInfoDeleteConfirmDialogComponent,
   ],
   entryComponents: [
       DialogOverviewExampleDialogComponent,
-      ConfirmDialogComponent],
+      ConfirmDialogComponent,
+      HouseExtraInfoDialogComponent
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

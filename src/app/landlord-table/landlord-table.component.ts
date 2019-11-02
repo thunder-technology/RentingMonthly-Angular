@@ -2,9 +2,7 @@ import {Component, Inject, Injectable, OnChanges, OnInit, ɵChangeDetectorStatus
 import {LandlordInfoService} from './landlord-info.service';
 import {LandlordInfo, LandLordInfoPost, UserInfo} from '../models/user';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
-import {AbstractControl, Form, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {unwatchFile} from 'fs';
-import {Equal} from 'tslint/lib/utils';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 
 @Component({
@@ -26,7 +24,7 @@ export class LandlordTableComponent implements OnInit {
         private service: LandlordInfoService,
         private dialog: MatDialog,
     ) {
-        this.headers = ['User Id', 'User Name', 'Full Name', 'Email', 'Contact Number', 'Residential Info', 'SIN'];
+        this.headers = ['Landlord id', 'User Name', 'Full Name', 'Email', 'Contact Number', 'Residential Info', 'SIN'];
     }
 
     private openDialog(): void {
@@ -76,9 +74,12 @@ export class LandlordTableComponent implements OnInit {
                                 }
                             }
                             this.landlordInfoPost = buffer;
+                            console.log('udata\n');
+                            console.log(udata);
+                            console.log('uinfo\n');
+                            console.log(uinfo);
                         });
             });
-
     }
 }
 
@@ -132,7 +133,7 @@ export class DialogOverviewExampleDialogComponent implements OnInit {
     }
 
     onUpdate(): void {
-        this.service.updateUserInfo(this.parseUserForPut()).subscribe(data => console.log(data));
+        this.service.updateUserInfo(this.parseUserForPut());
         this.service.updateLandLordInfo(this.parsedLandlordForPut()).subscribe(data => console.log(data));
     }
 
@@ -147,10 +148,8 @@ export class DialogOverviewExampleDialogComponent implements OnInit {
         });
     }
 
-
     private parseUserForPut(): UserInfo {
         const data = this.form.getRawValue();
-        console.log(data);
         const uInfo: UserInfo = new UserInfo(
             data.fullName === '' ? this.data.user.fullName : data.fullName,
             data.userName === '' ? this.data.user.userName : data.userName,
@@ -163,7 +162,6 @@ export class DialogOverviewExampleDialogComponent implements OnInit {
 
     private parsedLandlordForPut(): LandlordInfo {
         const data = this.form.getRawValue();
-        console.log(data);
         // uInfo.userId === lInfo.landlordId
         const lInfo: LandlordInfo = new LandlordInfo(
             data.residentalAddress === '' ? this.data.landlord.residentalAddress : data.residentalAddress,
@@ -217,7 +215,7 @@ export class ConfirmDialogComponent {
         this.dialogRef.close();
     }
 
-    onDelete(): void {
+    onDeleteUserInfo(): void {
         this.service.deleteUserInfoById(this.id).subscribe(data => console.log(data));
     }
 }

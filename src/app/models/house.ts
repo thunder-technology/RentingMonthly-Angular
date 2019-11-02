@@ -1,5 +1,4 @@
 import { Info } from './user';
-import {ɵBrowserAnimationBuilder} from '@angular/platform-browser/animations';
 
 export class Houses {
     address: string;
@@ -11,6 +10,7 @@ export class Houses {
     province: string;
     emptyRooms: string;
     totalRooms: string;
+    rooms?: object[];
     houseId?: number;
     latitude?: string;
     longitude?: string;
@@ -28,7 +28,9 @@ export class Houses {
         houseId?: number,
         latitude?: string,
         longitude?: string,
-        houseExtraInfo?: HouseExtraInfo
+        houseExtraInfo?: HouseExtraInfo,
+        emptyRooms?: string,
+        rooms?: object[]
     ) {
         this.address = address;
         this.city = city;
@@ -36,12 +38,14 @@ export class Houses {
         this.intersection = intersection;
         this.postCode = postCode;
         this.province = province;
+        this.emptyRooms = emptyRooms;
         this.totalRooms = totalRooms;
         this.desc = desc;
         this.houseId = houseId;
         this.latitude = latitude;
         this.longitude = longitude;
         this.houseExtraInfo = houseExtraInfo;
+        this.rooms = rooms;
     }
 }
 
@@ -82,7 +86,6 @@ export class HouseExtraInfo {
 }
 
 export class HouseInfo extends Info {
-
     public constructor() {
         super();
     }

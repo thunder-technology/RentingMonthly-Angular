@@ -13,6 +13,7 @@ export class HouseRecordingComponent implements OnInit {
   private houseInfo: Houses[];
   private houseHeader: Houses;
   private extraInfoHeader: string[];
+  private extraInfo: string[];
   private form: FormGroup;
   private houseTypeSelection: string[];
 
@@ -22,6 +23,17 @@ export class HouseRecordingComponent implements OnInit {
               private fb: FormBuilder) {
     this.houseInfo = [];
     this.extraInfoHeader = [
+        'Does it have Air Conditioner ?',
+        'Does it have Gym ?',
+        'Does it have Kitchen ?',
+        'Does it have Laundry Room ?',
+        'Does it have Swimming Pool ?',
+        'Does it have Television ?',
+        'Does it have Wifi ?',
+        'Is it near the subway station ?',
+        'Is parking available ?'
+    ];
+    this.extraInfo = [
         'hasAirCondition',
         'hasGym',
         'hasKitchen',
@@ -40,7 +52,7 @@ export class HouseRecordingComponent implements OnInit {
         'Intersection',
         'Post Code',
         'Province',
-        'Rooms'
+        'TotalRooms'
     );
     this.houseTypeSelection = ['Town House', 'House', 'Condo', 'Apartment'];
   }
@@ -104,10 +116,11 @@ export class HouseRecordingComponent implements OnInit {
     // map these MatListOptions to their values
     const fg = <FormGroup>this.form.get('houseExtraInfo');
     const arr = options.map(o => o.value);
-
     for (let i = 0; i < arr.length; i++) {
-      for (let j = 0; j < this.extraInfoHeader.length; j++) {
-        const buf = <string>this.extraInfoHeader[j];
+      for (let j = 0; j < this.extraInfo.length; j++) {
+        const buf = <string>this.extraInfo[j];
+        console.log(buf);
+        console.log(arr[i]);
         if (buf === arr[i]) {
           fg.patchValue({[buf]: '1'});
         }
@@ -117,7 +130,8 @@ export class HouseRecordingComponent implements OnInit {
 
   onSubmit(): void {
     if (this.form.valid) {
-      alert('Success!');
+        const house = <Houses>this.form.value;
+        //this.service.postHouseInfo(house, this.form.get('landlordId');
     } else {
       this.validateAllFormFields(this.form);
     }
