@@ -2,71 +2,65 @@ import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {Info, LandlordInfo, LandLordInfoPost, UserInfo} from '../models/user';
+import {Info, LandlordInfo, ResidentInfo} from '../models/user';
+import {Url} from '../models/url';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class LandlordInfoService {
-  private url = 'http://rentingmonthlyserver-env.siexzuwthp.us-east-1.elasticbeanstalk.com/users/';
-  private urlLandLordPost = 'http://rentingmonthlyserver-env.siexzuwthp.us-east-1.elasticbeanstalk.com/landlords/';
-  private urlLandLord = 'http://rentingmonthlyserver-env.siexzuwthp.us-east-1.elasticbeanstalk.com/landlords';
 
   constructor(private http: HttpClient) { }
 
-  getInfo(): Observable<Info> {
-    return this.http.get<Info>(this.url);
-  }
-
-  getUserInfoById(id: number): Observable<UserInfo> {
-    return this.http.get<UserInfo>(this.url + '/' + id);
-  }
-
   getLandlordInfo(): Observable<Info> {
-    return this.http.get<Info>(this.urlLandLord);
+    return this.http.get<Info>(Url.urlLandLord);
   }
 
   getLandlordInfoById(id: number): Observable<LandlordInfo> {
-    return this.http.get<LandlordInfo>(this.urlLandLord + '/' + id);
+    return this.http.get<LandlordInfo>(Url.urlLandLordById(id));
   }
 
-  deleteLandlordById(id: number): Observable<HttpResponse<LandLordInfoPost>> {
-    return this.http.delete<LandLordInfoPost>(this.urlLandLordPost + '/' + id, {
+
+  deleteLandlordById(id: number): Observable<HttpResponse<LandlordInfo>> {
+    return this.http.delete<LandlordInfo>(Url.urlLandLordById(id), {
       observe: 'response',
       responseType: 'json'
     });
   }
 
-  deleteUserInfoById(id: number): Observable<HttpResponse<UserInfo>> {
-    return this.http.delete<UserInfo>(this.url + '/' + id, {
+  deleteResidentById(id: number) {
+    return this.http.delete<ResidentInfo>(Url.urlResidentsById(id), {
+      observe: 'response',
+      responseType: 'json'
+    })
+  }
+
+  postLandlordInfo(body: LandlordInfo): Observable<HttpResponse<LandlordInfo>> {
+    return this.http.post<LandlordInfo>(Url.urlLandLord, body, {
       observe: 'response',
       responseType: 'json'
     });
   }
 
-  postLandlordInfo(body: LandLordInfoPost): Observable<LandLordInfoPost> {
-    return this.http.post<LandLordInfoPost>(this.urlLandLordPost, body);
+  putLandlordInfoById(body: LandlordInfo): Observable<LandlordInfo> {
+    return this.http.put<LandlordInfo>(Url.urlLandLordById(body.userId), {
+      observe: 'response',
+      responseType: 'json'
+    })
   }
 
-  postLandlordInfoRes(body: LandLordInfoPost): Observable<HttpResponse<LandLordInfoPost>> {
-    return this.http.post<LandLordInfoPost>(this.urlLandLordPost, body, {
+  postResidentInfo(body: ResidentInfo): Observable<HttpResponse<ResidentInfo>> {
+    return this.http.post<ResidentInfo>(Url.urlResidents, body, {
+      observe: 'response',
+      responseType: 'json'
+    })
+  }
+
+  updateLandLordInfo(body: LandlordInfo, id: number): Observable<HttpResponse<LandlordInfo>> {
+    return this.http.put<LandlordInfo>(Url.urlLandLordById(id), body, {
       observe: 'response',
       responseType: 'json'
     });
-  }
-
-  updateUserInfo(body: UserInfo): Observable<UserInfo> {
-    return this.http.put<UserInfo>(this.url + '/' + body.userId, body);
-  }
-
-  updateLandlordInfo(body: LandLordInfoPost): Observable<LandLordInfoPost> {
-    return this.http.put<LandLordInfoPost>(this.urlLandLordPost + '/' + body.user.userId + '/', body);
-  }
-
-  private getUserInfoRes(): Observable<HttpResponse<Info>> {
-    return this.http.get<Info>(
-        this.url, { observe: 'response', responseType: 'json'}
-    );
   }
 }

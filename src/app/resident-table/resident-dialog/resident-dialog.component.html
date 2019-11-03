@@ -1,0 +1,131 @@
+<mat-dialog-content [formGroup]="form">
+  <mat-form-field>
+    <label *ngIf="hasId">
+      <input matInput formControlName="userName" placeholder="username: {{data.userName}}" class="form-control">
+    </label>
+    <div *ngIf="!hasId">
+      <label>
+        <input matInput formControlName="userName" placeholder="What's your user name?" class="form-control">
+      </label>
+      <div *ngIf="userName.invalid && (userName.dirty || userName.touched)">
+        <div *ngIf="userName.errors.required">
+          <label>user name is required.</label>
+        </div>
+      </div>
+    </div>
+  </mat-form-field>
+  <mat-form-field>
+    <label *ngIf="hasId">
+      <input matInput formControlName="fullName" placeholder="fullname: {{data.fullName}}" class="form-control">
+    </label>
+    <div *ngIf="!hasId">
+      <label>
+        <input matInput formControlName="fullName" placeholder="What's your full name?" class="form-control" id="fullName">
+      </label>
+      <div *ngIf="fullName.invalid && (fullName.dirty || fullName.touched)">
+        <div *ngIf="fullName.errors.required">
+          <label>full name is required.</label>
+        </div>
+      </div>
+    </div>
+  </mat-form-field>
+  <mat-form-field>
+    <label *ngIf="hasId">
+      <input matInput formControlName="email" placeholder="email: {{data.email}}" class="form-control">
+    </label>
+    <div *ngIf="!hasId">
+      <label>
+        <input matInput formControlName="email" placeholder="What's your email address?" class="form-control" id="email">
+      </label>
+      <div *ngIf="email.invalid && (email.dirty || email.touched)">
+        <div *ngIf="email.errors.required">
+          <label>email is required.</label>
+        </div>
+      </div>
+    </div>
+  </mat-form-field>
+  <mat-form-field>
+    <label *ngIf="hasId">
+      <input matInput formControlName="contactNumber" placeholder="contactNumber: {{data.contactNumber}}" class="form-control">
+    </label>
+    <div *ngIf="!hasId">
+      <label>
+        <input matInput formControlName="contactNumber" placeholder="What's your contact number?" class="form-control" id="contactNumber">
+      </label>
+      <div *ngIf="contactNumber.invalid && (contactNumber.dirty || contactNumber.touched)">
+        <div *ngIf="contactNumber.errors.required">
+          <label>contactNumber is required.</label>
+        </div>
+      </div>
+    </div>
+  </mat-form-field>
+  <mat-form-field>
+    <label *ngIf="hasId">
+      <input matInput formControlName="avatarUri" placeholder="avatarUri: {{data.avatarUri}}" class="form-control">
+    </label>
+    <div *ngIf="!hasId">
+      <label>
+        <input matInput formControlName="avatarUri" placeholder="What's your Avatar Uri?" class="form-control" id="avatarUri">
+      </label>
+      <div *ngIf="avatarUri.invalid && (avatarUri.dirty || avatarUri.touched)">
+        <div *ngIf="avatarUri.errors.required">
+          <label>avatarUri is required.</label>
+        </div>
+      </div>
+    </div>
+  </mat-form-field>
+  <mat-form-field>
+    <label *ngIf="hasId">
+      <input matInput formControlName="bankingRunoverUri" placeholder="bankingRunoverUri: {{data.bankingRunoverUri}}" class="form-control">
+    </label>
+    <div *ngIf="!hasId">
+      <label>
+        <input matInput formControlName="bankingRunoverUri" placeholder="What's your Banking Runover Uri?" class="form-control" id="bankingRunoverUri">
+      </label>
+      <div *ngIf="bankingRunoverUri.invalid && (bankingRunoverUri.dirty || bankingRunoverUri.touched)">
+        <div *ngIf="bankingRunoverUri.errors.required">
+          <label>bankingRunoverUri is required.</label>
+        </div>
+      </div>
+    </div>
+  </mat-form-field>
+  <mat-form-field>
+    <label *ngIf="hasId">
+      <input matInput formControlName="creditCardNo" placeholder="creditCardNo: {{data.creditCardType}}" class="form-control">
+    </label>
+    <div *ngIf="!hasId">
+      <label>
+        <input matInput formControlName="creditCardNo" placeholder="What's your Credit Card number?" class="form-control" id="creditCardNo">
+      </label>
+      <div *ngIf="creditCardNo.invalid && (creditCardNo.dirty || creditCardNo.touched)">
+        <div *ngIf="creditCardNo.errors.required">
+          <label>creditCardNo is required.</label>
+        </div>
+      </div>
+    </div>
+  </mat-form-field>
+  <mat-form-field>
+    <label *ngIf="hasId">
+      <input matInput formControlName="creditCardType" placeholder="creditCardType: {{data.creditCardType}}" class="form-control">
+    </label>
+    <div *ngIf="!hasId">
+      <label>
+        <input matInput formControlName="creditCardType" placeholder="What's your creditCardType?" class="form-control" id="creditCardType">
+      </label>
+      <div *ngIf="creditCardType.invalid && (creditCardType.dirty || creditCardType.touched)">
+        <div *ngIf="creditCardType.errors.required">
+          <label>creditCardType is required.</label>
+        </div>
+      </div>
+    </div>
+  </mat-form-field>
+</mat-dialog-content>
+<div mat-dialog-actions>
+  <button mat-button (click)="onClose()">No Thanks</button>
+  <div *ngIf="hasId">
+    <button mat-button mat-raised-button color="warn" [mat-dialog-close]="" (click)="onUpdate()" >Update</button>
+  </div>
+  <div *ngIf="hasId === false">
+    <button mat-button mat-raised-button color="warn" [mat-dialog-close]="" [disabled]="!form.valid" (click)="onCreate()" >Create</button>
+  </div>
+</div>

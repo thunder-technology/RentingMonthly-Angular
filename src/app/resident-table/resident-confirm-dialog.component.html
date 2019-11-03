@@ -1,0 +1,7 @@
+<mat-dialog-content>
+  <label>Are you sure you want to delete the data? All the Houses associated with Residents would disappear too.</label>
+</mat-dialog-content>
+<div mat-dialog-actions>
+  <button mat-button (click)="onClose()">No Thanks</button>
+  <button mat-button mat-raised-button color="warn" [mat-dialog-close]="" (click)="onDelete()">Delete</button>
+</div>

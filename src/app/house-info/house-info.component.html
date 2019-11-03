@@ -5,6 +5,7 @@
         <div class="card">
           <div class="card-header card-header-danger">
             <h4 class="card-title">房源信息列表</h4>
+            <button mat-raised-button color="warn" (click)="goToUploadPage()">添加数据</button>
           </div>
           <div class="card-body">
             <div class="table-responsive">
@@ -25,8 +26,9 @@
                   <th>{{house.totalRooms}}</th>
                   <th>{{house.desc}}</th>
                   <div>
-                    <button mat-raised-button color="warn">修改数据</button>
-                    <button mat-raised-button color="warn">删除数据</button>
+                    <button mat-raised-button color="primary" (click)="onClickDialog(house.houseId)">查看额外</button>
+                    <button mat-raised-button color="warn" (click)="goToUpdatePage()">修改数据</button>
+                    <button mat-raised-button color="warn" (click)="onDeleteDialog(house.houseId)">删除数据</button>
                   </div>
                 </tr>
                 </tbody>

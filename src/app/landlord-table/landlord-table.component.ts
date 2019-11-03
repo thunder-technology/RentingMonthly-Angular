@@ -1,8 +1,13 @@
-import {Component, Inject, Injectable, OnChanges, OnInit} from '@angular/core';
+import {Component, Inject, Injectable, OnChanges, OnInit, ɵChangeDetectorStatus} from '@angular/core';
 import {LandlordInfoService} from './landlord-info.service';
-import {LandlordInfo, LandLordInfoPost, UserInfo} from '../models/user';
+import {LandlordInfo, ResidentInfo} from '../models/user';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
-import {Form, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Constants} from '../models/house';
+import {merge, validateAllFormFields} from '../common/util';
+import {Route, Router} from '@angular/router';
+import {timeout} from 'rxjs/operators';
+import {language_v1} from 'googleapis';
 
 
 @Component({
@@ -16,67 +21,48 @@ import {Form, FormBuilder, FormControl, FormGroup, Validators} from '@angular/fo
 })
 export class LandlordTableComponent implements OnInit {
     headers: string[];
-    userInfo: UserInfo[];
     landlordInfo: LandlordInfo[];
-    landlordInfoPost: LandLordInfoPost[];
+    residentInfo: ResidentInfo[];
 
     constructor(
         private service: LandlordInfoService,
         private dialog: MatDialog,
+        private route: Router,
     ) {
-        this.headers = ['User Id', 'User Name', 'Full Name', 'Email', 'Contact Number', 'Residential Info', 'SIN'];
-    }
-
-    private openDialog(): void {
-        this.dialog.open(DialogOverviewExampleDialogComponent, {
-            disableClose: true,
-            hasBackdrop: true,
-            width: '50em',
-            minWidth: '50em'
-        });
-    }
-
-    private updateDialog(data: LandLordInfoPost): void {
-        this.dialog.open(DialogOverviewExampleDialogComponent, {
-            disableClose: true,
-            hasBackdrop: true,
-            width: '50em',
-            minWidth: '50em',
-            data: data,
-        });
-    }
-
-    private deleteInfo(id: number): void {
-        this.dialog.open(ConfirmDialogComponent, {
-            disableClose: true,
-            hasBackdrop: true,
-            width: '20em',
-            minWidth: '20em',
-            data: id
-        });
+       this.headers = Constants.headers;
     }
 
     ngOnInit(): void {
-        this.service.getInfo()
-            .subscribe(udata => {
-                this.userInfo = <UserInfo[]>udata._embedded.userInfoes;
-                this.service.getLandlordInfo()
-                    .subscribe(
-                        uinfo => {
-                            this.landlordInfo = <LandlordInfo[]>uinfo._embedded.landlordInfoes;
-                            const buffer = <LandLordInfoPost[]>[];
-                            for (let i = 0; i < this.userInfo.length; i++) {
-                                for (let j = 0; j < this.landlordInfo.length; j++) {
-                                    if (this.userInfo[i].userId === this.landlordInfo[j].landlordId) {
-                                        const object = new LandLordInfoPost(this.userInfo[i], this.landlordInfo[j]);
-                                        buffer.push(object);
-                                    }
-                                }
-                            }
-                            this.landlordInfoPost = buffer;
-                        });
+        this.service.getLandlordInfo()
+            .subscribe(ldata => {
+                this.landlordInfo = <LandlordInfo[]>ldata._embedded.landlordInfoes;
+                console.log(this.landlordInfo);
             });
+    }
 
+    onClickDialog(): void {
+        this.dialog.open(DialogComponent, {
+            width: '50%',
+            data: LandlordInfo
+        }).afterClosed().subscribe(() => this.route.navigate(['landlord-table']));
+    }
+
+    onUpdateDialog(userId: number): void {
+        this.service.getLandlordInfoById(userId).subscribe(
+            data => {
+                this.dialog.open(DialogComponent, {
+                    width: '50%',
+                    data: data
+                }).afterClosed().subscribe(() => this.route.navigate(['landlord-table']));
+            }
+        );
+    }
+
+    onClickDeleteDialog(userId: number) {
+        this.dialog.open(ConfirmDialogComponent, {
+            width: '50%',
+            data: userId
+        }).afterClosed().subscribe(() => this.route.navigate(['landlord-table']));
     }
 }
 
@@ -84,22 +70,24 @@ export class LandlordTableComponent implements OnInit {
     selector: 'app-landlord-table-dialog',
     templateUrl: 'landlord-table-dialog.component.html',
 })
-export class DialogOverviewExampleDialogComponent implements OnInit {
+export class DialogComponent implements OnInit {
     form: FormGroup;
-    data: LandLordInfoPost;
+    data: LandlordInfo;
     hasId: boolean;
 
     constructor(
         private fb: FormBuilder,
-        public dialogRef: MatDialogRef<DialogOverviewExampleDialogComponent>,
+        public dialogRef: MatDialogRef<DialogComponent>,
         private service: LandlordInfoService,
-        @Inject(MAT_DIALOG_DATA) data: LandLordInfoPost
+        @Inject(MAT_DIALOG_DATA) data: LandlordInfo
         ) {
         this.data = data;
-        this.hasId = this.data !== null;
+        this.hasId = this.data.userId !== undefined;
     }
 
     ngOnInit(): void {
+        console.log('data in the Dialog');
+        console.log(this.data);
         this.form = this.fb.group({
             fullName: ['', Validators.required],
             userName: ['', Validators.required],
@@ -122,48 +110,22 @@ export class DialogOverviewExampleDialogComponent implements OnInit {
     }
 
     onCreate(): void {
-        this.service.postLandlordInfo(this.parsedInfo()).subscribe(
-            data => console.log(data)
-        );
+        if (this.form.valid) {
+            this.service.postLandlordInfo(this.form.value).subscribe(data => console.log(data));
+        } else {
+            validateAllFormFields(this.form);
+        }
     }
 
     onUpdate(): void {
+        console.log('data when merged');
+        const merged = merge(this.form.value, this.data) as LandlordInfo;
+        console.log(merged);
         if (this.form.valid) {
-            this.service.updateLandlordInfo(this.parsedInfo());
+            this.service.putLandlordInfoById(merged).subscribe(data => console.log('updated', data));
         } else {
-            this.validateAllFormFields(this.form);
+            validateAllFormFields(this.form);
         }
-    }
-
-    private validateAllFormFields(fb: FormGroup) {
-        Object.keys(fb.controls).forEach(field => {
-            const ctrl = fb.get(field);
-            if (ctrl instanceof FormControl) {
-                ctrl.markAsTouched({ onlySelf: true});
-            } else if ( ctrl instanceof FormGroup) {
-                this.validateAllFormFields(ctrl);
-            }
-        });
-    }
-
-    private parsedInfo(): LandLordInfoPost {
-        const data = this.form.getRawValue();
-        const uInfo: UserInfo = new UserInfo(
-            data.fullName,
-            data.userName,
-            data.email,
-            data.contactNumber
-        );
-
-        if (this.hasId) {
-            uInfo.userId = this.data.user.userId;
-        }
-
-        const lInfo: LandlordInfo = new LandlordInfo(
-            data.residentalAddress,
-            data.sin
-        );
-        return new LandLordInfoPost(uInfo, lInfo);
     }
 }
 
@@ -172,11 +134,10 @@ export class DialogOverviewExampleDialogComponent implements OnInit {
     templateUrl: 'confirm-dialog.component.html',
 })
 export class ConfirmDialogComponent {
-
     id: number;
 
     constructor(
-        public dialogRef: MatDialogRef<DialogOverviewExampleDialogComponent>,
+        public dialogRef: MatDialogRef<DialogComponent>,
         private service: LandlordInfoService,
         @Inject(MAT_DIALOG_DATA) id: number
     ) {
@@ -188,7 +149,8 @@ export class ConfirmDialogComponent {
     }
 
     onDelete(): void {
-        this.service.deleteUserInfoById(this.id).subscribe(data => console.log(data));
+        this.service.deleteLandlordById(this.id).subscribe(
+            data => console.log('deleted data:' + data));
     }
 }
 

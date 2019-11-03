@@ -7,8 +7,9 @@ import { IconsComponent } from '../../icons/icons.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { HouseRecordingComponent } from '../../house-recording/house-recording.component';
-import { OwnerRecordingComponent } from '../../owner-recording/owner-recording.component';
 import { HouseInfoComponent } from '../../house-info/house-info.component';
+import {ResidentTableComponent} from '../../resident-table/resident-table.component';
+import {LandlordTableComponent} from '../../landlord-table/landlord-table.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',       component: DashboardComponent },
@@ -18,6 +19,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'notifications',   component: NotificationsComponent },
     { path: 'upgrade',         component: UpgradeComponent },
     { path: 'house-info',      component: HouseInfoComponent},
-    { path: 'owner-recording', component: OwnerRecordingComponent  },
+    { path: 'resident-info', component: ResidentTableComponent},
     { path: 'house-recording', component: HouseRecordingComponent },
+    { path: 'landlord-table', component: LandlordTableComponent}
 ];

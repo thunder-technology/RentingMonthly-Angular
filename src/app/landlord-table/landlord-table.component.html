@@ -5,7 +5,7 @@
                 <div class="card">
                     <div class="card-header card-header-danger">
                         <h4 class="card-title">房东列表</h4>
-                        <button mat-raised-button color="warn" (click)="openDialog()">添加数据</button>
+                        <button mat-raised-button color="warn" (click)="onClickDialog()">添加数据</button>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -18,17 +18,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let i of landlordInfoPost" >
-                                        <th>{{i.user.userId}}</th>
-                                        <th>{{i.user.userName}}</th>
-                                        <th>{{i.user.fullName}}</th>
-                                        <th>{{i.user.email}}</th>
-                                        <th>{{i.user.contactNumber}}</th>
-                                        <th>{{i.landlord.residentalAddress}}</th>
-                                        <th>{{i.landlord.sin}}</th>
+                                    <tr *ngFor="let i of landlordInfo" >
+                                        <th>{{i.userId}}</th>
+                                        <th>{{i.userName}}</th>
+                                        <th>{{i.fullName}}</th>
+                                        <th>{{i.email}}</th>
+                                        <th>{{i.contactNumber}}</th>
+                                        <th>{{i.residentalAddress}}</th>
+                                        <th>{{i.sin}}</th>
                                         <div>
-                                            <button mat-raised-button color="warn" (click)="updateDialog(i)">修改数据</button>
-                                            <button mat-raised-button color="warn" (click)="deleteInfo(i.user.userId)">删除数据</button>
+                                            <button mat-raised-button color="warn" (click)="onUpdateDialog(i.userId)">修改数据</button>
+                                            <button mat-raised-button color="warn" (click)="onClickDeleteDialog(i.userId)">删除数据</button>
                                         </div>
                                     </tr>
                                 </tbody>

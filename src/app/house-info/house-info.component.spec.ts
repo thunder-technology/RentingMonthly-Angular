@@ -22,4 +22,8 @@ describe('HouseInfoComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('data contains', () => {
+    
+  })
 });

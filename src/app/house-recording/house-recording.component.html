@@ -4,23 +4,36 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header card-header-danger">
-            <h4 class="card-title">房源信息录入(开发中)</h4>
+            <h4 *ngIf="!update" class="card-title">房源信息录入</h4>
+            <h4 *ngIf="update" class="card-title">房源信息更新</h4>
             <p class="card-category"></p>
           </div>
           <div class="card-body">
             <form [formGroup]="this.form">
               <div class="row">
-                <div class="col-md-4">
+                <div *ngIf="update">
+                  <div class="col-md-3">
+                    <mat-form-field class="example-full-width">
+                      <input matInput placeholder="houseId" formControlName="houseId" class="form-control" id="houseId">
+                    </mat-form-field>
+                    <div *ngIf="houseId.invalid && (houseId.dirty || houseId.touched)">
+                      <div *ngIf="houseId.errors.required">
+                        <label>Please make sure house ID existed.</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
                   <mat-form-field class="example-full-width">
                     <input matInput placeholder="{{houseHeader.city}}" formControlName="city" class="form-control" id="city">
                   </mat-form-field>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                   <mat-form-field class="example-full-width">
                     <input matInput placeholder="{{houseHeader.province}}" formControlName="province" class="form-control" id="province">
                   </mat-form-field>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                   <mat-form-field class="example-full-width">
                     <input matInput placeholder="{{houseHeader.address}}" formControlName="address" class="form-control" id="address">
                   </mat-form-field>
@@ -34,11 +47,15 @@
                 </div>
                 <div class="col-md-3">
                   <mat-form-field class="example-full-width">
-                    <input matInput placeholder="{{houseHeader.houseType}}" formControlName="houseType" class="form-control">
+                    <mat-select placeholder="{{houseHeader.houseType}}" formControlName="houseType" class="form-control">
+                      <mat-option value="{{type}}" *ngFor="let type of houseTypeSelection">
+                        {{type}}
+                      </mat-option>
+                    </mat-select>
                   </mat-form-field>
                 </div>
                 <div class="col-md-3">
-                  <mat-form-field class="example-full-width">
+                  <mat-form-field class="example-full-width" >
                     <input matInput placeholder="{{houseHeader.postCode}}" formControlName="postCode" class="form-control">
                   </mat-form-field >
                 </div>
@@ -52,24 +69,23 @@
               </div>
               <div class="row">
                 <div class="col-md-12">
-                  <mat-form-field class="example-full-width ">
-                    <textarea mat-autosize matInput placeholder="Put your {{houseHeader.desc}} here." formControlName="desc" class="form-control"></textarea>
+                  <mat-form-field class="example-full-width">
+                    <textarea mat-autosize rows="5" matInput placeholder="Put your {{houseHeader.desc}} here." formControlName="desc" class="form-control"></textarea>
                   </mat-form-field>
                 </div>
               </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <mat-selection-list>
-                    <mat-list-option>
-                      something
-                    </mat-list-option>
-                    <mat-list-option>
-                      something
-                    </mat-list-option>
-                  </mat-selection-list>
+              <fieldset formGroupName="houseExtraInfo">
+                <div class="row">
+                  <div class="col-md-12">
+                    <mat-label>Extra House Info</mat-label>
+                    <mat-divider></mat-divider>
+                    <mat-selection-list #extraInfoList (selectionChange)="onGroupsChange(extraInfoList.selectedOptions.selected)">
+                      <mat-list-option *ngFor="let extraInfo of extraInfoHeader" value="{{extraInfo}}">{{extraInfo}}</mat-list-option>
+                    </mat-selection-list>
+                  </div>
                 </div>
-              </div>
-              <button mat-raised-button type="submit" class="btn btn-danger pull-right" (click)="onSubmit()">Update Profile</button>
+              </fieldset>
+              <button mat-raised-button type="submit" class="btn btn-danger pull-right" [disabled]="! form.valid" (click)="onSubmit()">Upload Profile</button>
               <div class="clearfix"> </div>
             </form>
           </div>
