@@ -4,43 +4,36 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header card-header-danger">
-            <h4 class="card-title">房源信息录入(开发中)</h4>
+            <h4 *ngIf="!update" class="card-title">房源信息录入</h4>
+            <h4 *ngIf="update" class="card-title">房源信息更新</h4>
             <p class="card-category"></p>
           </div>
           <div class="card-body">
             <form [formGroup]="this.form">
               <div class="row">
-                <div class="col-md-2">
-                  <mat-form-field class="example-full-width">
-                    <input matInput placeholder="landlordId" formControlName="landlordId" class="form-control" id="landlord">
-                  </mat-form-field>
-                  <div *ngIf="landlordId.invalid && (landlordId.dirty || landlordId.touched)">
-                    <div *ngIf="landlordId.errors.required">
-                      <label>Please make sure landlord ID existed.</label>
+                <div *ngIf="update">
+                  <div class="col-md-3">
+                    <mat-form-field class="example-full-width">
+                      <input matInput placeholder="houseId" formControlName="houseId" class="form-control" id="houseId">
+                    </mat-form-field>
+                    <div *ngIf="houseId.invalid && (houseId.dirty || houseId.touched)">
+                      <div *ngIf="houseId.errors.required">
+                        <label>Please make sure house ID existed.</label>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div class="col-md-2">
-                  <mat-form-field class="example-full-width">
-                    <input matInput placeholder="residentId" formControlName="residentId" class="form-control" id="resident">
-                  </mat-form-field>
-                  <div *ngIf="residentId.invalid && (residentId.dirty || residentId.touched)">
-                    <div *ngIf="residentId.errors.required">
-                      <label>Please make sure resident ID existed.</label>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-2">
+                <div class="col-md-3">
                   <mat-form-field class="example-full-width">
                     <input matInput placeholder="{{houseHeader.city}}" formControlName="city" class="form-control" id="city">
                   </mat-form-field>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-3">
                   <mat-form-field class="example-full-width">
                     <input matInput placeholder="{{houseHeader.province}}" formControlName="province" class="form-control" id="province">
                   </mat-form-field>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-3">
                   <mat-form-field class="example-full-width">
                     <input matInput placeholder="{{houseHeader.address}}" formControlName="address" class="form-control" id="address">
                   </mat-form-field>

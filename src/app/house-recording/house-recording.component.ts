@@ -1,9 +1,9 @@
-import {Component, Directive, OnInit} from '@angular/core';
-import {HouseExtraInfo, Houses} from '../models/house';
+import {Component, OnInit} from '@angular/core';
+import {Houses} from '../models/house';
 import {HouseRecordingService} from './house-recording.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {MatListOption, MatSelectionList} from '@angular/material';
-import {Router} from '@angular/router';
+import {MatListOption} from '@angular/material';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-house-recording',
@@ -12,17 +12,16 @@ import {Router} from '@angular/router';
 })
 export class HouseRecordingComponent implements OnInit {
   private houseInfo: Houses[];
-  private houseHeader: Houses;
   private extraInfoHeader: string[];
   private extraInfo: string[];
   private form: FormGroup;
   private houseTypeSelection: string[];
-
-  private isLandlordIdValid: boolean;
+  private update: boolean;
 
   constructor(private service: HouseRecordingService,
               private fb: FormBuilder,
-              private router: Router) {
+              private router: Router,
+              private route: ActivatedRoute) {
     this.houseInfo = [];
     this.extraInfoHeader = [
         'Does it have Air Conditioner ?',
@@ -46,21 +45,20 @@ export class HouseRecordingComponent implements OnInit {
         'isNearSubway',
         'parkingNum'
     ];
-    this.houseHeader = new Houses(
-        'Address',
-        'City',
-        'Description',
-        'Type of House',
-        'Intersection',
-        'Post Code',
-        'Province',
-        'TotalRooms'
-    );
     this.houseTypeSelection = ['Town House', 'House', 'Condo', 'Apartment'];
   }
 
-  get residentId() {return this.form.get('residentId')};
-  get landlordId() {return this.form.get('landlordId')};
+  get houseHeader() {return {
+    city: 'City',
+    province: 'Province',
+    address: 'Address',
+    totalRooms: 'Total Rooms',
+    houseType: 'House Type',
+    postCode: 'Postal Code',
+    intersection: 'Intersection',
+    desc: 'Description'
+  }}
+  get houseId() {return this.form.get('houseId')};
   get address() {return this.form.get('address')};
   get city() {return this.form.get('city')};
   get desc() {return this.form.get('desc')};
@@ -80,9 +78,9 @@ export class HouseRecordingComponent implements OnInit {
   get parkingNum() {return this.form.get('houseExtraInfo').get('parkingNum')};
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(data => this.update = data['update']);
     this.form = this.fb.group({
-      landlordId: ['', Validators.required],
-      residentId: ['', Validators.required],
+      houseId: [''],
       address: ['', Validators.required],
       city: ['', Validators.required],
       desc: ['', Validators.required],
@@ -105,6 +103,7 @@ export class HouseRecordingComponent implements OnInit {
     });
   }
 
+  // Depth First Search to validate all form fields.
   private validateAllFormFields(fb: FormGroup) {
     Object.keys(fb.controls).forEach(field => {
       const ctrl = fb.get(field);
@@ -133,6 +132,8 @@ export class HouseRecordingComponent implements OnInit {
   onSubmit(): void {
     if (this.form.valid) {
         const house = <Houses>this.form.value;
+        console.log(this.form.value);
+        this.service.postHouseInfo(house).subscribe(data => console.log(data));
     } else {
       this.validateAllFormFields(this.form);
     }

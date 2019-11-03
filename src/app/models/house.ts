@@ -1,5 +1,4 @@
 import {Embedded, Info, Links, Page} from './user';
-import {androiddeviceprovisioning_v1} from 'googleapis';
 
 export class Houses {
     address: string;
@@ -12,7 +11,7 @@ export class Houses {
     emptyRooms: string;
     totalRooms: string;
     rooms?: object[];
-    houseId?: number;
+    houseId: number;
     latitude?: string;
     longitude?: string;
     houseExtraInfo?: HouseExtraInfo;
@@ -45,7 +44,17 @@ export class Houses {
         this.houseId = houseId || -1;
         this.latitude = latitude || '-';
         this.longitude = longitude || '-';
-        this.houseExtraInfo = houseExtraInfo;
+        this.houseExtraInfo = houseExtraInfo || new HouseExtraInfo(
+            '0',
+            '0',
+            '0',
+            '0',
+            '0',
+            '0',
+            '0',
+            '0',
+            '0',
+        );
         this.rooms = rooms;
     }
 }
@@ -73,7 +82,7 @@ export class HouseExtraInfo {
                 parkingNum: string,
                 houseId?: number
                 ) {
-        this.houseId = houseId || 0;
+        this.houseId = houseId || -1;
         this.hasAirCondition = hasAirCondition || '0';
         this.hasGym = hasGym || '0';
         this.hasKitchen = hasKitchen || '0';
@@ -97,3 +106,5 @@ export class Constants {
     static r_headers = ['Resident id', 'User Name', 'Full Name', 'Contact Number', 'Email',
         'AvatarUri', 'BankingRunoverUri', 'CreditCard Number', 'CreditCard Type'];
 }
+
+

@@ -78,7 +78,7 @@ export class ResidentInfo {
         this.fullName = fullName || '-';
         this.contactNumber = contactNumber || '-';
         this.email = email || '-';
-        this.rents = rents || '-';
+        this.rents = rents;
         this.avatarUri = avatarUri || '-';
         this.userId = userId;
         this.bankingRunoverUri = bankingRunoverUri || '-';

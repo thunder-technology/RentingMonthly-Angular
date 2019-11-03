@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpResponse} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {HouseInfo, Houses} from '../models/house';
-import {LandlordInfo} from '../models/user';
+import {Houses} from '../models/house';
 import {HouseInfoService} from '../house-info/house-info.service';
 
 @Injectable({

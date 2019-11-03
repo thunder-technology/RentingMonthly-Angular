@@ -11,8 +11,6 @@ import {HouseExtraInfo} from '../../models/house';
   styleUrls: ['./house-extra-info-dialog.component.scss']
 })
 export class HouseExtraInfoDialogComponent implements OnInit {
-
-  private visualArray: string[];
   private id: number;
   private houseExtraInfo: HouseExtraInfo;
 
@@ -23,9 +21,7 @@ export class HouseExtraInfoDialogComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.id);
     this.service.getHouseInfoByHouseId(this.id).subscribe(data => {
-      console.log(data);
       this.houseExtraInfo = data.houseExtraInfo;
     });
   }
